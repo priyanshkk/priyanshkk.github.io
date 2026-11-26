@@ -1329,7 +1329,8 @@
         if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
 
         const iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        const mobileMute = finePointer ? '' : '&mute=1';
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1' + mobileMute;
         iframe.title = frame.dataset.title || 'YouTube video';
         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
         iframe.setAttribute('allowfullscreen', '');
@@ -1337,6 +1338,7 @@
         frame.appendChild(iframe);
         frame.dataset.playing = '1';
         frame.classList.add('is-playing');
+        if (!finePointer) showToast('Playing inline — tap the speaker to unmute');
       });
     });
   }
@@ -1362,6 +1364,7 @@
       { id: 'playground', label: 'Playground / 3D Toys' },
       { id: 'expertise', label: 'Expertise / Focus' },
       { id: 'videos', label: 'Videos / Channel' },
+      { id: 'social', label: 'Social / Instagram + Facebook' },
       { id: 'contact', label: 'Contact / Hire me' }
     ];
     const repos = [
@@ -1436,7 +1439,7 @@
       if (!query) {
         list.push(make('G', 'Search Google…', 'WEB', 'google', ''));
         list.push(make('GH', 'Search GitHub / priyanshkk', 'REPOS', 'github', ''));
-        ['projects', 'playground', 'videos', 'contact'].forEach(function (id) {
+        ['projects', 'playground', 'videos', 'social', 'contact'].forEach(function (id) {
           const section = sections.filter(function (s) { return s.id === id; })[0];
           if (section) list.push(make('↗', section.label, 'SECTION', 'section', section.id));
         });
@@ -1568,6 +1571,14 @@
     }
 
     trigger.addEventListener('click', open);
+    window.addEventListener('quickfind:open', function (event) {
+      open();
+      const query = event && event.detail && event.detail.query;
+      if (query) {
+        input.value = query;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
     if (scrim) scrim.addEventListener('click', function () { close(); });
 
     input.addEventListener('input', function () {
@@ -1615,6 +1626,29 @@
     });
   }
 
+  function initWebSearch() {
+    const form = document.getElementById('webSearchForm');
+    const input = document.getElementById('webSearchInput');
+    if (!form || !input) return;
+
+    function openWith(query) {
+      window.dispatchEvent(new CustomEvent('quickfind:open', { detail: { query: query } }));
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const query = input.value.trim();
+      openWith(query);
+      if (!query) input.blur();
+    });
+
+    document.querySelectorAll('[data-search-chip]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        openWith(chip.getAttribute('data-search-chip') || '');
+      });
+    });
+  }
+
   function initGlass3D() {
     if (!finePointer || reduced) return;
     document.querySelectorAll('.glass-3d').forEach(function (el) {
@@ -1654,6 +1688,7 @@
     safetyNet();
     initVideoEmbed();
     initAIPalette();
+    initWebSearch();
     initGlass3D();
     // Normalise the CSS percentage offset into GSAP's yPercent so intro tweens land at 0.
     if (hasGSAP && !reduced) {
