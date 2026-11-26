@@ -125,6 +125,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Work</a></li>
+        <li><a href="#playground">Playground</a></li>
         <li><a href="#expertise">Expertise</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -143,9 +144,9 @@
           <div class="hero__left">
             <p class="kicker hero__kicker" data-fade><span class="pulse"></span> AVAILABLE FOR SELECT PROJECTS <i>// 2026</i></p>
             <h1 class="hero__title" aria-label="Code that feels like magic">
-              <span class="line"><span>CODE THAT</span></span>
-              <span class="line"><span>FEELS LIKE</span></span>
-              <span class="line"><span class="txt-accent">MAGIC.</span></span>
+              <span class="line"><span data-text="CODE THAT">CODE THAT</span></span>
+              <span class="line"><span data-text="FEELS LIKE">FEELS LIKE</span></span>
+              <span class="line"><span class="txt-accent" data-text="MAGIC.">MAGIC.</span></span>
             </h1>
             <p class="hero__lead" data-fade>
               I'm <strong>Priyanshu Kumar</strong> — an open-source builder turning messy
@@ -367,11 +368,75 @@
         </div>
       </section>
 
-      <!-- 06 · EXPERTISE / HOVER REVEAL -->
-      <section class="section expertise" id="expertise">
+      <!-- 06 · PLAYGROUND / TOY WORLD + FLUID FIELD -->
+      <section class="section playground" id="playground">
         <div class="container">
           <div class="section-head" data-reveal>
             <span class="section-head__num">04 /</span>
+            <h2>DRIVE THE <span class="txt-accent">ARCHIVE</span></h2>
+            <span class="section-head__line"></span>
+          </div>
+          <p class="section-sub" data-fade>
+            A miniature world built from the same obsession as my tools. Drive, jump and smash a
+            crate to unlock a project. Move the pointer across the fluid field — it reacts in real time.
+          </p>
+
+          <div class="playground__grid">
+            <div class="world" id="worldWrap">
+              <canvas id="worldCanvas" aria-label="Interactive 3D toy world with a drivable car and project crates"></canvas>
+              <div class="world__scan" aria-hidden="true"></div>
+              <div class="world__hud" aria-hidden="true">
+                <span><i class="pulse"></i> WORLD.ONLINE</span>
+                <span id="worldCrates">00 / 05 CRATES</span>
+              </div>
+              <div class="world__hint" id="worldHint">WASD / ARROWS TO DRIVE · SPACE TO JUMP</div>
+              <div class="world__touch" aria-label="Touch controls">
+                <button type="button" data-drive="left" aria-label="Steer left">◀</button>
+                <button type="button" data-drive="forward" aria-label="Drive forward">▲</button>
+                <button type="button" data-drive="jump" aria-label="Jump">JUMP</button>
+                <button type="button" data-drive="right" aria-label="Steer right">▶</button>
+              </div>
+              <button class="world__reset magnetic" id="worldReset" type="button" data-cursor="RESET">RESET ↺</button>
+              <div class="world__card" id="worldCard" aria-live="polite" hidden>
+                <span class="world__card-tag" id="worldCardTag">PROJECT UNLOCKED</span>
+                <h3 id="worldCardTitle"></h3>
+                <p id="worldCardText"></p>
+                <a id="worldCardLink" href="#" target="_blank" rel="noopener noreferrer" data-cursor="OPEN">OPEN REPO ↗</a>
+              </div>
+              <div class="world__fallback" id="worldFallback" hidden>
+                <p>3D world unavailable here — the archive is still one click away.</p>
+                <div class="world__fallback-links">
+                  <a href="https://github.com/priyanshkk/workflowguard" target="_blank" rel="noopener noreferrer">WorkflowGuard ↗</a>
+                  <a href="https://github.com/priyanshkk/envguard" target="_blank" rel="noopener noreferrer">EnvGuard ↗</a>
+                  <a href="https://github.com/priyanshkk/composeguard" target="_blank" rel="noopener noreferrer">ComposeGuard ↗</a>
+                  <a href="https://github.com/priyanshkk/gitwhisper" target="_blank" rel="noopener noreferrer">GitWhisper ↗</a>
+                  <a href="https://github.com/priyanshkk/finpulse-ai" target="_blank" rel="noopener noreferrer">FinPulse AI ↗</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="fluid" id="fluidWrap">
+              <canvas id="fluidCanvas" aria-hidden="true"></canvas>
+              <div class="fluid__labels" aria-hidden="true">
+                <span>REAL-TIME / REACTIVE</span>
+                <span>FLUID FIELD · 60FPS</span>
+              </div>
+              <div class="fluid__copy">
+                <span class="fluid__num">// 02</span>
+                <h3>LIQUID<br />INTERFACE</h3>
+                <p>Mouse position becomes pressure. Five soft bodies chase, stretch and merge into one surface — no video, just math.</p>
+              </div>
+              <div class="fluid__orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · EXPERTISE / HOVER REVEAL -->
+      <section class="section expertise" id="expertise">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">05 /</span>
             <h2>WHAT I <span class="txt-accent">DO</span></h2>
             <span class="section-head__line"></span>
           </div>
@@ -398,12 +463,12 @@
         </div>
       </section>
 
-      <!-- 07 · CONTACT -->
+      <!-- 08 · CONTACT -->
       <section class="contact" id="contact">
         <canvas id="waveCanvas" aria-hidden="true"></canvas>
         <div class="contact__glow" aria-hidden="true"></div>
         <div class="container contact__inner">
-          <p class="kicker" data-fade><span class="pulse"></span> 05 / OPEN CHANNEL</p>
+          <p class="kicker" data-fade><span class="pulse"></span> 06 / OPEN CHANNEL</p>
           <h2 class="contact__title" data-reveal>
             <span class="line"><span>GOT AN IDEA?</span></span>
             <span class="line"><span class="txt-accent">LET'S SHIP IT.</span></span>

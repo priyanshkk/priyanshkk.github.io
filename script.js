@@ -1,7 +1,7 @@
 /* ============================================================
    PRIYANSHU KK — PREMIUM 3D PORTFOLIO
    Interaction layer: preloader, smooth scroll, GSAP motion,
-   Three.js hero, particle wave, magnetic UI, utilities.
+   Three.js hero + toy world, fluid field, glitch, magnetic UI, utilities.
    Every module degrades gracefully if a CDN is unavailable.
    ============================================================ */
 
@@ -19,6 +19,15 @@
 
   const EMAIL = 'priyanshukumarpk3645736@gmail.com';
   let lenis = null;
+  let threeModulePromise = null;
+
+  // One CDN request shared by the hero and the playground world.
+  function loadThree() {
+    if (!threeModulePromise) {
+      threeModulePromise = import('https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js');
+    }
+    return threeModulePromise;
+  }
 
   /* ----------------------------------------------------------
      01 · PRELOADER (0 → 100 with curtain reveal)
@@ -407,7 +416,7 @@
     if (!canvas || !wrap) return;
 
     try {
-      const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js');
+      const THREE = await loadThree();
 
       const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
@@ -478,6 +487,36 @@
       }));
       group.add(halo);
 
+      // Sci-fi depth layer: drifting star dust + reactive wireframe shards.
+      const starCount = window.innerWidth < 700 ? 240 : 560;
+      const starPositions = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        starPositions[i * 3] = (Math.random() - 0.5) * 28;
+        starPositions[i * 3 + 1] = (Math.random() - 0.5) * 18;
+        starPositions[i * 3 + 2] = -4 - Math.random() * 24;
+      }
+      const starGeo = new THREE.BufferGeometry();
+      starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+      const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
+        color: 0xffffff, size: 0.032, transparent: true, opacity: 0.6,
+        blending: THREE.AdditiveBlending, depthWrite: false
+      }));
+      scene.add(stars);
+
+      const shards = [];
+      for (let i = 0; i < 4; i++) {
+        const geometry = i % 2
+          ? new THREE.TetrahedronGeometry(0.3, 0)
+          : new THREE.OctahedronGeometry(0.28, 0);
+        const shard = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+          color: i % 2 ? 0x3ee8ff : 0x8b5cf6,
+          wireframe: true, transparent: true, opacity: 0.46
+        }));
+        shard.userData = { radius: 2.9 + i * 0.38, speed: 0.12 + i * 0.035, phase: i * 1.7 };
+        shards.push(shard);
+        group.add(shard);
+      }
+
       let mx = 0, my = 0, scrollSpin = 0;
       window.addEventListener('pointermove', function (e) {
         mx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -519,6 +558,20 @@
         ringA.rotation.z = time * 0.34;
         ringB.rotation.y = -time * 0.26;
         halo.rotation.y = time * 0.12;
+        stars.rotation.z = time * 0.014;
+        stars.position.x += (mx * 0.2 - stars.position.x) * 0.025;
+        stars.position.y += (-my * 0.16 - stars.position.y) * 0.025;
+        shards.forEach(function (shard) {
+          const data = shard.userData;
+          const angle = time * data.speed * 6 + data.phase;
+          shard.position.set(
+            Math.cos(angle) * data.radius,
+            Math.sin(angle * 0.72) * 0.92,
+            Math.sin(angle) * data.radius * 0.5
+          );
+          shard.rotation.x = angle;
+          shard.rotation.y = -angle * 0.6;
+        });
         group.rotation.y += (mx * 0.22 + scrollSpin * 0.4 - group.rotation.y) * 0.05;
         group.rotation.x += (my * 0.12 - group.rotation.x) * 0.05;
         camera.position.x += (mx * 0.34 - camera.position.x) * 0.04;
@@ -540,7 +593,543 @@
   }
 
   /* ----------------------------------------------------------
-     08 · CONTACT PARTICLE WAVE (2D canvas, cheap & smooth)
+     08 · SIGNAL GLITCH (Active Theory-inspired)
+     ---------------------------------------------------------- */
+  function initGlitch() {
+    const title = document.querySelector('.hero__title');
+    if (!title || reduced) return;
+    const lines = Array.prototype.slice.call(title.querySelectorAll('.line > span'));
+    let busy = false;
+
+    function pulse() {
+      if (busy) return;
+      busy = true;
+      lines.forEach(function (line, i) {
+        setTimeout(function () {
+          line.classList.add('is-glitching');
+          setTimeout(function () { line.classList.remove('is-glitching'); }, 320);
+        }, i * 85);
+      });
+      setTimeout(function () { busy = false; }, 620);
+    }
+
+    setTimeout(pulse, 520);
+    title.addEventListener('pointerenter', pulse);
+    let lastScrollPulse = 0;
+    window.addEventListener('scroll', function () {
+      const now = Date.now();
+      if (window.scrollY < 120 && now - lastScrollPulse > 4200) {
+        lastScrollPulse = now;
+        pulse();
+      }
+    }, { passive: true });
+  }
+
+  /* ----------------------------------------------------------
+     09 · TOY WORLD / DRIVE + SMASH ARCHIVE
+     Bruno Simon-inspired miniature world, custom-built here.
+     ---------------------------------------------------------- */
+  async function initToyWorld() {
+    const canvas = document.getElementById('worldCanvas');
+    const wrap = document.getElementById('worldWrap');
+    if (!canvas || !wrap) return;
+    const cratesEl = document.getElementById('worldCrates');
+    const card = document.getElementById('worldCard');
+    const cardTag = document.getElementById('worldCardTag');
+    const cardTitle = document.getElementById('worldCardTitle');
+    const cardText = document.getElementById('worldCardText');
+    const cardLink = document.getElementById('worldCardLink');
+    const hint = document.getElementById('worldHint');
+    const fallback = document.getElementById('worldFallback');
+    const resetBtn = document.getElementById('worldReset');
+
+    try {
+      const THREE = await loadThree();
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 700 ? 1.25 : 1.65));
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x050505, 0.034);
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(5.4, 5.1, 7.4);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.72));
+      const keyLight = new THREE.DirectionalLight(0xd4ff3f, 1.55);
+      keyLight.position.set(4, 8, 5);
+      scene.add(keyLight);
+      const rimLight = new THREE.PointLight(0x3ee8ff, 16, 18);
+      rimLight.position.set(-4, 3, -3);
+      scene.add(rimLight);
+
+      const ground = new THREE.Mesh(
+        new THREE.PlaneGeometry(14, 14),
+        new THREE.MeshStandardMaterial({ color: 0x0b0d0b, roughness: 0.88, metalness: 0.12 })
+      );
+      ground.rotation.x = -Math.PI / 2;
+      scene.add(ground);
+
+      const grid = new THREE.GridHelper(14, 28, 0xd4ff3f, 0x223026);
+      grid.material.transparent = true;
+      grid.material.opacity = 0.19;
+      scene.add(grid);
+
+      const border = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(14, 0.02, 14)),
+        new THREE.LineBasicMaterial({ color: 0x3ee8ff, transparent: true, opacity: 0.34 })
+      );
+      border.position.y = 0.01;
+      scene.add(border);
+
+      // Low-poly skyline gives the archive a miniature-world read.
+      const deco = new THREE.Group();
+      const decoMat = new THREE.MeshStandardMaterial({
+        color: 0x151a15, emissive: 0x0b1a0b, roughness: 0.7, metalness: 0.25
+      });
+      for (let i = 0; i < 16; i++) {
+        const h = 0.25 + Math.random() * 0.9;
+        const block = new THREE.Mesh(new THREE.BoxGeometry(0.35 + Math.random() * 0.4, h, 0.35 + Math.random() * 0.4), decoMat);
+        const x = (Math.random() - 0.5) * 12;
+        const z = (Math.random() - 0.5) * 12;
+        if (Math.abs(x) < 1.2 && Math.abs(z) < 1.2) continue;
+        block.position.set(x, h / 2, z);
+        deco.add(block);
+      }
+      scene.add(deco);
+
+      const ramps = [];
+      function addRamp(x, z, rot) {
+        const ramp = new THREE.Mesh(
+          new THREE.BoxGeometry(2.8, 0.12, 1.6),
+          new THREE.MeshStandardMaterial({
+            color: 0x8b5cf6, emissive: 0x2c1463, roughness: 0.42, metalness: 0.3
+          })
+        );
+        ramp.position.set(x, 0.44, z);
+        ramp.rotation.set(-0.27, rot, 0, 'YXZ');
+        scene.add(ramp);
+        ramps.push({ x: x, z: z, rot: rot, halfX: 1.4, halfZ: 0.9 });
+      }
+      addRamp(2.7, -1.5, 0);
+      addRamp(-2.9, -3.1, Math.PI / 2);
+
+      function rampHeightAt(x, z) {
+        let height = 0;
+        ramps.forEach(function (r) {
+          const dx = x - r.x, dz = z - r.z;
+          const c = Math.cos(r.rot), s = Math.sin(r.rot);
+          const lx = dx * c + dz * s;
+          const lz = -dx * s + dz * c;
+          if (Math.abs(lx) < r.halfX && Math.abs(lz) < r.halfZ) {
+            const t = Math.max(0, Math.min(1, (r.halfZ - lz) / (r.halfZ * 2)));
+            height = Math.max(height, t * 0.62);
+          }
+        });
+        return height;
+      }
+
+      const car = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0xd4ff3f, emissive: 0x2d3c05, roughness: 0.34, metalness: 0.46
+      });
+      const body = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.34, 1.5), bodyMat);
+      body.position.y = 0.3;
+      car.add(body);
+      const cabin = new THREE.Mesh(
+        new THREE.BoxGeometry(0.72, 0.3, 0.68),
+        new THREE.MeshStandardMaterial({ color: 0x101410, roughness: 0.22, metalness: 0.62 })
+      );
+      cabin.position.set(0, 0.57, -0.06);
+      car.add(cabin);
+      const wheelGeo = new THREE.CylinderGeometry(0.19, 0.19, 0.16, 14);
+      const wheelMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.92 });
+      [[-0.52, -0.48], [0.52, -0.48], [-0.52, 0.48], [0.52, 0.48]].forEach(function (w) {
+        const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+        wheel.position.set(w[0], 0.19, w[1]);
+        wheel.rotation.z = Math.PI / 2;
+        car.add(wheel);
+      });
+      const headlight = new THREE.Mesh(
+        new THREE.BoxGeometry(0.66, 0.07, 0.04),
+        new THREE.MeshBasicMaterial({ color: 0x3ee8ff })
+      );
+      headlight.position.set(0, 0.34, -0.77);
+      car.add(headlight);
+      scene.add(car);
+
+      const crateData = [
+        {
+          name: 'workflowguard', color: 0xd4ff3f, pos: [-1.7, -1.2],
+          text: 'Offline GitHub Actions linter that catches unpinned actions, broad tokens and pwn-requests before they ship.'
+        },
+        {
+          name: 'envguard', color: 0x3ee8ff, pos: [1.6, -2.6],
+          text: 'Dotenv validator with example-drift detection, placeholder checks and source-code key audits.'
+        },
+        {
+          name: 'composeguard', color: 0x8b5cf6, pos: [3.3, 0.9],
+          text: 'Docker Compose validator for homelabs and CI — secrets, port conflicts and privileged containers.'
+        },
+        {
+          name: 'gitwhisper', color: 0xd4ff3f, pos: [-2.7, 2.1],
+          text: 'Privacy-first CLI that catches leaked secrets, writes clean commits and generates PR summaries offline.'
+        },
+        {
+          name: 'finpulse-ai', color: 0x3ee8ff, pos: [0.5, 3.1],
+          text: 'Self-hosted invoice and expense tracker with an AI receipt scanner and one-command Docker setup.'
+        }
+      ];
+
+      const crates = crateData.map(function (data, i) {
+        const mesh = new THREE.Mesh(
+          new THREE.BoxGeometry(0.72, 0.72, 0.72),
+          new THREE.MeshStandardMaterial({
+            color: data.color, emissive: data.color, emissiveIntensity: 0.14,
+            roughness: 0.44, metalness: 0.28
+          })
+        );
+        mesh.position.set(data.pos[0], 0.36, data.pos[1]);
+        mesh.rotation.y = i * 0.55;
+        mesh.userData = { data: data, alive: true, base: mesh.position.clone(), phase: i * 1.2 };
+        scene.add(mesh);
+        return mesh;
+      });
+
+      const bursts = [];
+      function spawnBurst(position, color) {
+        if (reduced) return;
+        const n = 26;
+        const arr = new Float32Array(n * 3);
+        const vel = [];
+        for (let i = 0; i < n; i++) {
+          arr[i * 3] = position.x;
+          arr[i * 3 + 1] = position.y;
+          arr[i * 3 + 2] = position.z;
+          vel.push(new THREE.Vector3(
+            (Math.random() - 0.5) * 0.14,
+            Math.random() * 0.16 + 0.03,
+            (Math.random() - 0.5) * 0.14
+          ));
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+        const points = new THREE.Points(geo, new THREE.PointsMaterial({
+          color: color, size: 0.09, transparent: true, opacity: 1,
+          blending: THREE.AdditiveBlending, depthWrite: false
+        }));
+        scene.add(points);
+        bursts.push({ points: points, vel: vel, life: 1 });
+      }
+
+      let smashed = 0;
+      function unlock(mesh) {
+        mesh.userData.alive = false;
+        scene.remove(mesh);
+        spawnBurst(mesh.position, mesh.userData.data.color);
+        smashed += 1;
+        if (cratesEl) cratesEl.textContent = String(smashed).padStart(2, '0') + ' / 05 CRATES';
+        const data = mesh.userData.data;
+        if (cardTag) cardTag.textContent = 'PROJECT UNLOCKED · ' + String(smashed).padStart(2, '0');
+        if (cardTitle) cardTitle.textContent = data.name;
+        if (cardText) cardText.textContent = data.text;
+        if (cardLink) cardLink.href = 'https://github.com/priyanshkk/' + data.name;
+        if (card) {
+          card.hidden = false;
+          if (hasGSAP && !reduced) {
+            gsap.fromTo(card, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out' });
+          }
+        }
+        if (hint) hint.classList.add('is-hidden');
+      }
+
+      const keys = Object.create(null);
+      const drivingCodes = {
+        ArrowUp: 'forward', KeyW: 'forward', ArrowDown: 'back', KeyS: 'back',
+        ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'jump'
+      };
+      let heading = 0;
+      let speed = 0;
+      let vy = 0;
+      let visible = false;
+      let dirty = true;
+
+      function jump() {
+        const groundY = rampHeightAt(car.position.x, car.position.z);
+        if (Math.abs(car.position.y - groundY) < 0.09) {
+          vy = 0.15;
+          dirty = true;
+        }
+      }
+
+      window.addEventListener('keydown', function (e) {
+        if (!visible || !(e.code in drivingCodes)) return;
+        const tag = document.activeElement && document.activeElement.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        e.preventDefault();
+        const action = drivingCodes[e.code];
+        keys[action] = true;
+        dirty = true;
+        if (action === 'jump') jump();
+      }, { passive: false });
+
+      window.addEventListener('keyup', function (e) {
+        const action = drivingCodes[e.code];
+        if (action) { keys[action] = false; dirty = true; }
+      });
+
+      window.addEventListener('blur', function () {
+        Object.keys(keys).forEach(function (k) { keys[k] = false; });
+        dirty = true;
+      });
+
+      wrap.querySelectorAll('[data-drive]').forEach(function (button) {
+        const action = button.getAttribute('data-drive');
+        const start = function (e) {
+          e.preventDefault();
+          keys[action] = true;
+          dirty = true;
+          if (action === 'jump') jump();
+        };
+        const stop = function () { keys[action] = false; dirty = true; };
+        button.addEventListener('pointerdown', start);
+        button.addEventListener('pointerup', stop);
+        button.addEventListener('pointercancel', stop);
+        button.addEventListener('pointerleave', stop);
+      });
+
+      function resetWorld() {
+        car.position.set(0, 0, 5);
+        heading = 0;
+        speed = 0;
+        vy = 0;
+        smashed = 0;
+        dirty = true;
+        if (cratesEl) cratesEl.textContent = '00 / 05 CRATES';
+        if (card) card.hidden = true;
+        if (hint) hint.classList.remove('is-hidden');
+        crates.forEach(function (mesh) {
+          mesh.userData.alive = true;
+          mesh.position.copy(mesh.userData.base);
+          scene.add(mesh);
+        });
+        bursts.forEach(function (burst) {
+          scene.remove(burst.points);
+          burst.points.geometry.dispose();
+          burst.points.material.dispose();
+        });
+        bursts.length = 0;
+      }
+      if (resetBtn) resetBtn.addEventListener('click', resetWorld);
+      resetWorld();
+
+      function updateCar() {
+        if (keys.forward) speed += 0.018;
+        else if (keys.back) speed -= 0.014;
+        speed *= 0.945;
+        speed = Math.max(-0.11, Math.min(0.16, speed));
+        const steer = speed >= 0 ? 1 : -1;
+        if (keys.left) heading += 0.046 * steer;
+        if (keys.right) heading -= 0.046 * steer;
+
+        const dx = Math.sin(heading);
+        const dz = -Math.cos(heading);
+        car.position.x = Math.max(-6.4, Math.min(6.4, car.position.x + dx * speed));
+        car.position.z = Math.max(-6.4, Math.min(6.4, car.position.z + dz * speed));
+
+        const targetY = rampHeightAt(car.position.x, car.position.z);
+        vy -= 0.009;
+        if (car.position.y + vy <= targetY) {
+          car.position.y = targetY;
+          vy = 0;
+        } else {
+          car.position.y += vy;
+        }
+
+        const aheadY = rampHeightAt(car.position.x + dx * 0.35, car.position.z + dz * 0.35);
+        const pitch = Math.max(-0.22, Math.min(0.22, (aheadY - targetY) * 0.5));
+        car.rotation.set(pitch, heading, 0, 'YXZ');
+      }
+
+      function resize() {
+        const w = wrap.clientWidth;
+        const h = wrap.clientHeight;
+        if (!w || !h) return;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      if ('ResizeObserver' in window) new ResizeObserver(resize).observe(wrap);
+      else window.addEventListener('resize', resize);
+      resize();
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+          if (visible) dirty = true;
+        }, { threshold: 0.04 });
+        io.observe(wrap);
+      } else {
+        visible = true;
+      }
+
+      let time = 0;
+      function render() {
+        requestAnimationFrame(render);
+        if (!visible || document.hidden) return;
+        const moving = keys.forward || keys.back || keys.left || keys.right || vy !== 0 || Math.abs(speed) > 0.001;
+        if (reduced && !dirty && !moving) return;
+        if (!reduced) time += 0.016;
+
+        updateCar();
+
+        crates.forEach(function (mesh) {
+          if (!mesh.userData.alive) return;
+          if (!reduced) {
+            mesh.rotation.y += 0.0035;
+            mesh.position.y = mesh.userData.base.y + Math.sin(time * 2 + mesh.userData.phase) * 0.06;
+          }
+          const ax = mesh.position.x - car.position.x;
+          const az = mesh.position.z - car.position.z;
+          if (ax * ax + az * az < 0.82 * 0.82 && car.position.y < 1.1) unlock(mesh);
+        });
+
+        for (let i = bursts.length - 1; i >= 0; i--) {
+          const burst = bursts[i];
+          const arr = burst.points.geometry.attributes.position.array;
+          for (let j = 0; j < burst.vel.length; j++) {
+            burst.vel[j].y -= 0.006;
+            arr[j * 3] += burst.vel[j].x;
+            arr[j * 3 + 1] += burst.vel[j].y;
+            arr[j * 3 + 2] += burst.vel[j].z;
+          }
+          burst.points.geometry.attributes.position.needsUpdate = true;
+          burst.life -= 0.016;
+          burst.points.material.opacity = Math.max(0, burst.life);
+          if (burst.life <= 0) {
+            scene.remove(burst.points);
+            burst.points.geometry.dispose();
+            burst.points.material.dispose();
+            bursts.splice(i, 1);
+          }
+        }
+
+        if (!reduced) {
+          deco.rotation.y = Math.sin(time * 0.16) * 0.05;
+          const target = new THREE.Vector3(
+            5.2 + car.position.x * 0.32,
+            4.9 + car.position.y * 0.24,
+            7.2 + car.position.z * 0.32
+          );
+          camera.position.lerp(target, 0.045);
+        }
+        camera.lookAt(car.position.x * 0.48, 0.42 + car.position.y * 0.3, car.position.z * 0.48);
+        renderer.render(scene, camera);
+        dirty = false;
+      }
+      render();
+    } catch (error) {
+      console.warn('Toy world unavailable — showing archive links.', error);
+      canvas.style.display = 'none';
+      if (hint) hint.hidden = true;
+      if (resetBtn) resetBtn.hidden = true;
+      if (fallback) fallback.hidden = false;
+    }
+  }
+
+  /* ----------------------------------------------------------
+     10 · FLUID FIELD / MOUSE-REACTIVE SOFT BODIES
+     Lusion-inspired, rendered with plain canvas math.
+     ---------------------------------------------------------- */
+  function initFluid() {
+    const canvas = document.getElementById('fluidCanvas');
+    const wrap = document.getElementById('fluidWrap');
+    if (!canvas || !wrap || !canvas.getContext) return;
+    const ctx = canvas.getContext('2d');
+    let W = 0, H = 0, visible = true, t = 0;
+    const pointer = { x: 0.5, y: 0.5 };
+    const blobs = [
+      { x: 0.42, y: 0.44, r: 0.3, rgb: '212,255,63', sx: 0.006, sy: 0.004 },
+      { x: 0.62, y: 0.52, r: 0.26, rgb: '62,232,255', sx: 0.004, sy: 0.007 },
+      { x: 0.52, y: 0.62, r: 0.24, rgb: '139,92,246', sx: 0.007, sy: 0.005 },
+      { x: 0.35, y: 0.6, r: 0.2, rgb: '62,232,255', sx: 0.005, sy: 0.006 },
+      { x: 0.7, y: 0.38, r: 0.22, rgb: '212,255,63', sx: 0.008, sy: 0.005 }
+    ];
+
+    function resize() {
+      W = wrap.clientWidth;
+      H = wrap.clientHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.max(1, Math.floor(W * dpr));
+      canvas.height = Math.max(1, Math.floor(H * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(wrap);
+    else window.addEventListener('resize', resize);
+    resize();
+
+    wrap.addEventListener('pointermove', function (e) {
+      const rect = wrap.getBoundingClientRect();
+      pointer.x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      pointer.y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+    }, { passive: true });
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+      }, { threshold: 0.03 });
+      io.observe(wrap);
+    }
+
+    function draw() {
+      requestAnimationFrame(draw);
+      if (!visible || document.hidden || !W || !H) return;
+      if (!reduced) t += 0.016;
+      ctx.clearRect(0, 0, W, H);
+
+      const base = ctx.createLinearGradient(0, 0, W, H);
+      base.addColorStop(0, 'rgba(139,92,246,0.10)');
+      base.addColorStop(1, 'rgba(5,5,5,0)');
+      ctx.fillStyle = base;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.globalCompositeOperation = 'screen';
+      blobs.forEach(function (blob, i) {
+        const targetX = pointer.x + Math.sin(t * blob.sx * 60 + i) * 0.18;
+        const targetY = pointer.y + Math.cos(t * blob.sy * 60 + i * 1.4) * 0.16;
+        blob.x += (targetX - blob.x) * (reduced ? 1 : 0.045);
+        blob.y += (targetY - blob.y) * (reduced ? 1 : 0.045);
+        const x = blob.x * W;
+        const y = blob.y * H;
+        const radius = blob.r * Math.min(W, H) * (1 + Math.sin(t * 1.4 + i) * 0.08);
+        const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+        g.addColorStop(0, 'rgba(' + blob.rgb + ',0.88)');
+        g.addColorStop(0.52, 'rgba(' + blob.rgb + ',0.34)');
+        g.addColorStop(1, 'rgba(' + blob.rgb + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalCompositeOperation = 'source-over';
+
+      if (!reduced) {
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(255,255,255,0.055)';
+        for (let i = 0; i < 4; i++) {
+          const radius = (t * 26 + i * 44) % 190;
+          ctx.beginPath();
+          ctx.arc(pointer.x * W, pointer.y * H, radius, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+    }
+    draw();
+  }
+
+  /* ----------------------------------------------------------
+     11 · CONTACT PARTICLE WAVE (2D canvas, cheap & smooth)
      ---------------------------------------------------------- */
   function initWave() {
     const canvas = document.getElementById('waveCanvas');
@@ -657,7 +1246,7 @@
   }
 
   /* ----------------------------------------------------------
-     09 · EMAIL COPY + MOTION REEL
+     12 · EMAIL COPY + MOTION REEL
      ---------------------------------------------------------- */
   let toastTimer = 0;
   function showToast(message) {
@@ -717,7 +1306,7 @@
   }
 
   /* ----------------------------------------------------------
-     10 · SAFETY + BOOT
+     13 · SAFETY + BOOT
      ---------------------------------------------------------- */
   function safetyNet() {
     setTimeout(function () {
@@ -745,7 +1334,10 @@
       initExpertise();
       initEmail();
       initReel();
+      initGlitch();
       initHero3D();
+      initToyWorld();
+      initFluid();
       initWave();
     });
     window.addEventListener('load', function () {
