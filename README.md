@@ -35,4 +35,4 @@ Then open http://localhost:8000.
 ## Author
 
 Priyanshu Kumar — B.Tech CSE graduate, open-source developer.
-GitHub: https://github.com/priyanshkk
+GitHub: https://github.com/priyanshkk · LinkedIn: https://www.linkedin.com/in/priyanshu-kumar-a195ba271/ · X: https://x.com/Priyanshu_kk_29 · Instagram: https://www.instagram.com/priyanshu.k_/ · Facebook: https://www.facebook.com/priyanshu.kk.3 · YouTube: https://www.youtube.com/@priyanshu.kk.3
