@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Priyanshu Kumar — Open-Source Developer, Python &amp; AI, India</title>
+    <title>Priyanshu Kumar — Creative Developer &amp; Open-Source Builder</title>
     <meta
       name="description"
       content="Priyanshu Kumar — B.Tech CSE graduate and open-source developer from India. Python, TypeScript, React, FastAPI, AI, RAG, CLI tools and privacy-first software."
@@ -16,7 +16,7 @@
     <link rel="canonical" href="https://priyanshkk.github.io/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://priyanshkk.github.io/" />
-    <meta property="og:title" content="Priyanshu Kumar — Open-Source Developer, Python &amp; AI" />
+    <meta property="og:title" content="Priyanshu Kumar — Creative Developer &amp; Open-Source Builder" />
     <meta
       property="og:description"
       content="B.Tech CSE graduate from India building privacy-first developer tools, AI applications and open-source software."
@@ -24,13 +24,13 @@
     <meta property="og:image" content="https://priyanshkk.github.io/assets/og-preview.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@Priyanshu_kk_29" />
-    <meta name="twitter:title" content="Priyanshu Kumar — Open-Source Developer, Python &amp; AI" />
+    <meta name="twitter:title" content="Priyanshu Kumar — Creative Developer &amp; Open-Source Builder" />
     <meta
       name="twitter:description"
       content="Python, TypeScript, FastAPI, AI, RAG and privacy-first CLI tools. Open to collaborations and full-time roles."
     />
     <meta name="twitter:image" content="https://priyanshkk.github.io/assets/og-preview.svg" />
-    <meta name="theme-color" content="#080b10" />
+    <meta name="theme-color" content="#050505" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -41,16 +41,8 @@
         "jobTitle": "Open-Source Developer",
         "description": "B.Tech CSE graduate from India building privacy-first developer tools, AI applications and open-source software with Python, TypeScript, React, FastAPI and RAG.",
         "knowsAbout": [
-          "Python",
-          "TypeScript",
-          "JavaScript",
-          "React",
-          "Node.js",
-          "FastAPI",
-          "Artificial Intelligence",
-          "RAG",
-          "CLI tools",
-          "Open Source"
+          "Python", "TypeScript", "JavaScript", "React", "Node.js", "FastAPI",
+          "Artificial Intelligence", "RAG", "CLI tools", "Open Source"
         ],
         "alumniOf": { "@type": "CollegeOrUniversity", "name": "Sandip University" },
         "address": { "@type": "PostalAddress", "addressCountry": "IN" },
@@ -63,241 +55,387 @@
         ]
       }
     </script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23080b10'/><text x='50' y='68' font-family='monospace' font-size='46' font-weight='bold' fill='%2339ff14' text-anchor='middle'>PK</text></svg>" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23050505'/><text x='50' y='68' font-family='monospace' font-size='46' font-weight='bold' fill='%23d4ff3f' text-anchor='middle'>PK</text></svg>" />
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" as="image" href="assets/hero-portrait.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      window.tailwind && (tailwind.config = {
+        theme: {
+          extend: {
+            colors: { ink: '#050505', acid: '#d4ff3f', violet: '#8b5cf6', cyan: '#3ee8ff' },
+            fontFamily: {
+              display: ['Syne', 'sans-serif'],
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace']
+            }
+          }
+        }
+      });
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <div class="scroll-progress" id="progress" aria-hidden="true"></div>
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <div class="grid-bg" aria-hidden="true"></div>
-    <div class="glow glow-one" aria-hidden="true"></div>
-    <div class="glow glow-two" aria-hidden="true"></div>
 
-    <nav class="nav" aria-label="Main navigation">
-      <a class="brand" href="#home">PK<span>.</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
+  <body>
+    <!-- 01 · PRELOADER -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <div class="preloader__top">
+        <span class="preloader__brand">PK<span>.</span></span>
+        <span class="preloader__tag">PORTFOLIO / 2026</span>
+      </div>
+      <div class="preloader__center">
+        <div class="preloader__counter"><span id="loadCount">000</span><i>%</i></div>
+        <div class="preloader__bar"><span id="loadBar"></span></div>
+        <p class="preloader__status" id="loadStatus">Booting the experience…</p>
+      </div>
+      <div class="preloader__bottom">
+        <span>PRIYANSHU KUMAR</span>
+        <span>INDIA · REMOTE</span>
+      </div>
+      <div class="preloader__curtain" id="preloaderCurtain"></div>
+    </div>
+
+    <!-- CURSOR + PROGRESS -->
+    <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <!-- AMBIENT LAYERS -->
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient__mesh ambient__mesh--one"></span>
+      <span class="ambient__mesh ambient__mesh--two"></span>
+      <span class="ambient__mesh ambient__mesh--three"></span>
+    </div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a class="nav__brand" href="#home" data-cursor="TOP" aria-label="Back to top">PK<span>.</span></a>
+      <ul class="nav__links" id="navLinks">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#expertise">Expertise</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a class="nav-cta" href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer">
+      <a class="nav__cta magnetic" href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer" data-cursor="OPEN">
         GitHub <span aria-hidden="true">↗</span>
       </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
     </nav>
 
     <main>
+      <!-- 02 · HERO -->
       <header class="hero" id="home">
-        <div class="hero-copy">
-          <p class="eyebrow reveal">// B.TECH CSE GRADUATE · OPEN SOURCE · BUILDING IN PUBLIC</p>
-          <h1 class="reveal">
-            <span class="muted">Hi, I'm</span>
-            <span class="typed-wrap"><span id="typed">Priyanshu Kumar</span><span class="cursor" aria-hidden="true"></span></span>
-          </h1>
-          <p class="hero-lead reveal">
-            I build <strong>privacy-first developer tools</strong> and useful software — from
-            secret-scanning CLIs to AI-powered apps that work offline.
-          </p>
-          <div class="hero-actions reveal">
-            <a class="btn btn-primary" href="#projects">View projects <span aria-hidden="true">↓</span></a>
-            <a class="btn btn-ghost" href="mailto:priyanshukumarpk3645736@gmail.com">Let's talk <span aria-hidden="true">↗</span></a>
+        <div class="hero__content container">
+          <div class="hero__left">
+            <p class="kicker hero__kicker" data-fade><span class="pulse"></span> AVAILABLE FOR SELECT PROJECTS <i>// 2026</i></p>
+            <h1 class="hero__title" aria-label="Code that feels like magic">
+              <span class="line"><span>CODE THAT</span></span>
+              <span class="line"><span>FEELS LIKE</span></span>
+              <span class="line"><span class="txt-accent">MAGIC.</span></span>
+            </h1>
+            <p class="hero__lead" data-fade>
+              I'm <strong>Priyanshu Kumar</strong> — an open-source builder turning messy
+              problems into privacy-first tools, CLIs and AI systems that actually work offline.
+            </p>
+            <div class="hero__actions" data-fade>
+              <a class="btn btn--primary magnetic" href="#projects" data-cursor="EXPLORE">
+                <span>Explore work</span><span aria-hidden="true">↗</span>
+              </a>
+              <a class="btn btn--ghost magnetic" href="mailto:priyanshukumarpk3645736@gmail.com" data-cursor="MAIL">
+                <span>Let's talk</span><span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <div class="hero__meta" data-fade>
+              <span><b>16</b> public repos</span>
+              <span><b>9</b> shipped builds</span>
+              <span><b>0</b> trackers</span>
+            </div>
           </div>
-          <div class="hero-socials reveal" aria-label="Social links">
-            <a href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
-            <a href="https://www.linkedin.com/in/priyanshu-kumar-a195ba271/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">IN</a>
-            <a href="https://x.com/Priyanshu_kk_29" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
-            <a href="https://youtube.com/@ApexViewYT" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+
+          <div class="hero__visual" id="heroVisual">
+            <canvas id="heroCanvas" aria-hidden="true"></canvas>
+            <div class="orb-fallback" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="hud hud--top" aria-hidden="true"><i></i><span>SYS.ONLINE</span><i></i></div>
+            <div class="hud hud--bottom" aria-hidden="true"><span>LAT 19.0760° N</span><span>LNG 72.8777° E</span></div>
+            <figure class="hero__portrait tilt" data-cursor="FOUNDER">
+              <img src="assets/hero-portrait.png" alt="Priyanshu Kumar, creative developer" width="432" height="592" />
+              <figcaption><span class="pulse"></span> BUILDER / FOUNDER</figcaption>
+            </figure>
+            <div class="orbit-tag orbit-tag--one" aria-hidden="true">PYTHON · AI · RAG</div>
+            <div class="orbit-tag orbit-tag--two" aria-hidden="true">OPEN SOURCE · 24/7</div>
           </div>
         </div>
 
-        <div class="terminal reveal" aria-label="Terminal preview">
-          <div class="terminal-bar">
-            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-            <span class="terminal-title">priyanshu@dev:~ — zsh</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$</span> <span class="cmd">whoami</span></p>
-            <p class="out">priyanshu kumar <span class="tag">// B.Tech CSE graduate · SDE</span></p>
-            <p><span class="prompt">$</span> <span class="cmd">cat focus.txt</span></p>
-            <p class="out">developer tools · AI/ML · privacy-first software</p>
-            <p><span class="prompt">$</span> <span class="cmd">npm run build</span></p>
-            <p class="out success">✓ 9 projects shipped <span class="tag">· 0 trackers</span></p>
-            <p><span class="prompt">$</span> <span class="cmd">git status</span></p>
-            <p class="out">On branch <b>building</b> · open to collaborations</p>
-            <p class="final"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
-          </div>
-        </div>
-
-        <a class="scroll-hint" href="#about" aria-label="Scroll to about section">scroll <span aria-hidden="true">↓</span></a>
+        <a class="scroll-cue" href="#about" data-cursor="DOWN" aria-label="Scroll to about section">
+          <span>SCROLL TO EXPLORE</span><i></i>
+        </a>
       </header>
 
+      <!-- MARQUEE -->
       <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <span>Python</span><span>◆</span><span>TypeScript</span><span>◆</span><span>React</span><span>◆</span>
-          <span>Node.js</span><span>◆</span><span>Docker</span><span>◆</span><span>AI / ML</span><span>◆</span>
-          <span>Open Source</span><span>◆</span><span>Python</span><span>◆</span><span>TypeScript</span><span>◆</span>
-          <span>React</span><span>◆</span><span>Node.js</span><span>◆</span><span>Docker</span><span>◆</span>
-          <span>AI / ML</span><span>◆</span><span>Open Source</span><span>◆</span>
+        <div class="marquee__track">
+          <span>Python</span><b>✳</b><span>TypeScript</span><b>✳</b><span>React</span><b>✳</b>
+          <span>FastAPI</span><b>✳</b><span>AI / ML</span><b>✳</b><span>RAG</span><b>✳</b>
+          <span>Docker</span><b>✳</b><span>Open Source</span><b>✳</b>
+          <span>Python</span><b>✳</b><span>TypeScript</span><b>✳</b><span>React</span><b>✳</b>
+          <span>FastAPI</span><b>✳</b><span>AI / ML</span><b>✳</b><span>RAG</span><b>✳</b>
+          <span>Docker</span><b>✳</b><span>Open Source</span><b>✳</b>
         </div>
       </div>
 
-      <section class="section" id="about">
-        <div class="section-head reveal"><span class="num">01.</span><h2>About</h2><span class="line"></span></div>
-        <div class="about-grid">
-          <div class="about-copy reveal">
-            <p class="lead">
-              I'm a B.Tech Computer Science graduate from Sandip University who likes
-              turning messy problems into clean, usable tools.
-            </p>
-            <p>
-              My work sits where developer experience meets practical AI: local-first CLIs,
-              dependency-free Python libraries, and dashboards that never phone home. I care
-              about small details — honest tests, clear docs, and software that works without
-              an API key.
-            </p>
-            <p>
-              Currently exploring retrieval-augmented generation, typed APIs, and the craft of
-              making complex things feel simple.
-            </p>
-            <div class="about-cards">
-              <div class="mini-card"><span class="mini-label">Education</span><strong>B.Tech CSE</strong><small>Sandip University</small></div>
-              <div class="mini-card"><span class="mini-label">Location</span><strong>India</strong><small>Remote-friendly</small></div>
-              <div class="mini-card"><span class="mini-label">Status</span><strong class="online">● Available</strong><small>For collaborations</small></div>
+      <!-- 03 · ABOUT / BENTO -->
+      <section class="section about" id="about">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">01 /</span>
+            <h2>THE HUMAN <span class="txt-accent">BEHIND</span> THE CODE</h2>
+            <span class="section-head__line"></span>
+          </div>
+
+          <div class="bento">
+            <article class="bento__card bento__card--bio tilt" data-cursor="ABOUT">
+              <div class="card__label">// WHO I AM</div>
+              <div class="bio__inner">
+                <div class="bio__avatar">
+                  <img src="assets/about-portrait.png" alt="Priyanshu Kumar" width="432" height="592" loading="lazy" />
+                  <span class="bio__status"></span>
+                </div>
+                <div>
+                  <h3>Building in public, since day one.</h3>
+                  <p>
+                    B.Tech CSE graduate from Sandip University who likes turning messy problems
+                    into clean, usable tools. My work sits where developer experience meets
+                    practical AI — local-first CLIs, dependency-free Python libraries and dashboards
+                    that never phone home.
+                  </p>
+                  <p>
+                    I care about the small details: honest tests, clear docs and software that works
+                    without an API key. Currently exploring retrieval-augmented generation, typed
+                    APIs and the craft of making complex things feel simple.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article class="bento__card bento__card--stat tilt" data-cursor="STATS">
+              <div class="card__label">// BY THE NUMBERS</div>
+              <div class="stat"><b data-count="16">0</b><span>public repositories</span></div>
+              <div class="stat"><b data-count="9">0</b><span>featured builds shipped</span></div>
+              <div class="stat"><b data-count="100" data-suffix="%">0</b><span>local-first by design</span></div>
+              <div class="stat"><b data-count="0">0</b><span>trackers added</span></div>
+            </article>
+
+            <article class="bento__card bento__card--reel tilt" data-cursor="PLAY">
+              <div class="card__label">// SIGNAL, NOT NOISE</div>
+              <video id="reel" muted loop playsinline preload="none" poster="assets/motion-photo.jpg">
+                <source src="assets/reel.mp4" type="video/mp4" />
+              </video>
+              <div class="reel__overlay"><span class="pulse"></span> MOTION / EXPERIMENTS</div>
+            </article>
+
+            <article class="bento__card bento__card--quote tilt" data-cursor="THINK">
+              <div class="card__label">// PHILOSOPHY</div>
+              <blockquote>“The best tool is the one you forget is there — it just works, offline.”</blockquote>
+              <span class="quote__by">— PRIYANSHU KK</span>
+            </article>
+
+            <article class="bento__card bento__card--info tilt" data-cursor="INFO">
+              <div class="card__label">// CURRENTLY</div>
+              <ul class="info-list">
+                <li><span>BASE</span><b>India · Remote-friendly</b></li>
+                <li><span>EDU</span><b>B.Tech CSE · Sandip University</b></li>
+                <li><span>FOCUS</span><b>RAG, typed APIs, dev tools</b></li>
+                <li><span>STATUS</span><b class="online">● Open to collaborations</b></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · SKILLS -->
+      <section class="section skills" id="skills">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">02 /</span>
+            <h2>THE <span class="txt-accent">ARSENAL</span></h2>
+            <span class="section-head__line"></span>
+          </div>
+          <p class="section-sub" data-fade>Tools I reach for daily — and the ones I'm sharpening right now.</p>
+
+          <div class="skills-grid">
+            <article class="skill-card tilt" data-cursor="90%"><span class="skill-card__glyph">Py</span><div><h3>Python</h3><p>Core · CLIs · Automation</p></div><b>90</b><i style="--lv:90%"></i></article>
+            <article class="skill-card tilt" data-cursor="82%"><span class="skill-card__glyph">TS</span><div><h3>TypeScript</h3><p>Typed APIs · Frontend</p></div><b>82</b><i style="--lv:82%"></i></article>
+            <article class="skill-card tilt" data-cursor="80%"><span class="skill-card__glyph">Re</span><div><h3>React</h3><p>Interfaces · Dashboards</p></div><b>80</b><i style="--lv:80%"></i></article>
+            <article class="skill-card tilt" data-cursor="78%"><span class="skill-card__glyph">No</span><div><h3>Node.js</h3><p>Services · Tooling</p></div><b>78</b><i style="--lv:78%"></i></article>
+            <article class="skill-card tilt" data-cursor="74%"><span class="skill-card__glyph">AI</span><div><h3>AI / ML &amp; RAG</h3><p>Retrieval · Local models</p></div><b>74</b><i style="--lv:74%"></i></article>
+            <article class="skill-card tilt" data-cursor="70%"><span class="skill-card__glyph">Dk</span><div><h3>Docker</h3><p>One-command setups</p></div><b>70</b><i style="--lv:70%"></i></article>
+            <article class="skill-card tilt" data-cursor="76%"><span class="skill-card__glyph">Ci</span><div><h3>Testing &amp; CI</h3><p>pytest · GitHub Actions</p></div><b>76</b><i style="--lv:76%"></i></article>
+            <article class="skill-card tilt" data-cursor="85%"><span class="skill-card__glyph">Gt</span><div><h3>Git &amp; Open Source</h3><p>Public builds · Docs</p></div><b>85</b><i style="--lv:85%"></i></article>
+          </div>
+
+          <div class="chips" data-fade>
+            <span>C</span><span>C++</span><span>Java</span><span>HTML</span><span>CSS</span><span>MySQL</span>
+            <span>MongoDB</span><span>Express</span><span>FastAPI</span><span>AWS</span><span>GitHub Actions</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · PROJECTS / HORIZONTAL -->
+      <section class="projects" id="projects">
+        <div class="projects__head container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">03 /</span>
+            <h2>SELECTED <span class="txt-accent">WORK</span></h2>
+            <span class="section-head__line"></span>
+          </div>
+          <div class="projects__meta" data-fade>
+            <p>Nine open-source builds. Scroll to move through the archive.</p>
+            <span class="projects__hint">SCROLL <i>→</i></span>
+          </div>
+        </div>
+
+        <div class="projects__viewport">
+          <div class="projects__track" id="projectTrack">
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/workspace.png" alt="ComposeGuard workspace" width="747" height="1024" loading="lazy" /><span class="project__num">01</span></div>
+              <div class="project__body"><h3>composeguard</h3><p>Offline Docker Compose validator for homelabs and CI. Catches hardcoded secrets, port conflicts and privileged containers before deployment.</p><div class="tags"><span>Docker</span><span>DevOps</span><span>CLI</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/composeguard" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open composeguard on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/signal-grid.png" alt="WorkflowGuard signal grid" width="1365" height="768" loading="lazy" /><span class="project__num">02</span></div>
+              <div class="project__body"><h3>workflowguard</h3><p>Offline GitHub Actions linter that catches unpinned actions, broad tokens, shell injection, pwn-requests, hardcoded secrets and costly timeouts.</p><div class="tags"><span>GitHub Actions</span><span>CI Security</span><span>Browser checker</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/workflowguard" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open workflowguard on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/project-ai.png" alt="EnvGuard AI artwork" width="864" height="1184" loading="lazy" /><span class="project__num">03</span></div>
+              <div class="project__body"><h3>envguard</h3><p>Offline <code>.env</code> validator that catches example drift, placeholders, invalid values and env keys used in source but never declared.</p><div class="tags"><span>Dotenv</span><span>CI</span><span>Browser demo</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/envguard" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open envguard on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/banner.png" alt="GitWhisper banner" width="1000" height="563" loading="lazy" /><span class="project__num">04</span></div>
+              <div class="project__body"><h3>gitwhisper</h3><p>Privacy-first AI CLI that catches leaked secrets, writes clean commits and generates PR summaries. Local dashboard, offline fallback, zero keys needed.</p><div class="tags"><span>CLI</span><span>React</span><span>Security</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/gitwhisper" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open gitwhisper on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/motion-photo.jpg" alt="FinPulse AI workspace" width="3268" height="1887" loading="lazy" /><span class="project__num">05</span></div>
+              <div class="project__body"><h3>finpulse-ai</h3><p>Self-hosted invoice and expense tracker with an AI receipt scanner, offline fallback and one-command Docker setup.</p><div class="tags"><span>FastAPI</span><span>AI</span><span>Docker</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/finpulse-ai" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open finpulse-ai on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/signal-grid.png" alt="ContextKit visual" width="1365" height="768" loading="lazy" /><span class="project__num">06</span></div>
+              <div class="project__body"><h3>contextkit</h3><p>Token-aware, structure-preserving text chunking for RAG pipelines with a typed API and CLI. Zero runtime dependencies.</p><div class="tags"><span>RAG</span><span>CLI</span><span>Library</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/contextkit" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open contextkit on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/project-ai.png" alt="SafePath artwork" width="864" height="1184" loading="lazy" /><span class="project__num">07</span></div>
+              <div class="project__body"><h3>safepath</h3><p>Dependency-free path-traversal defence for Python file-serving apps, with a CLI and 56 tests.</p><div class="tags"><span>Security</span><span>Testing</span><span>CLI</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/safepath" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open safepath on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/workspace.png" alt="File organizer workspace" width="747" height="1024" loading="lazy" /><span class="project__num">08</span></div>
+              <div class="project__body"><h3>file-organizer</h3><p>Organise files into categories with a dry-run mode and a one-command undo. Small tool, carefully designed.</p><div class="tags"><span>Automation</span><span>CLI</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/file-organizer" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open file-organizer on GitHub">VIEW REPO ↗</a>
+            </article>
+
+            <article class="project tilt" data-cursor="VIEW">
+              <div class="project__media"><img src="assets/banner.png" alt="Snake game banner" width="1000" height="563" loading="lazy" /><span class="project__num">09</span></div>
+              <div class="project__body"><h3>snake-game</h3><p>Classic Snake with pygame, unit-tested game logic and a clean separation between rules and rendering.</p><div class="tags"><span>pygame</span><span>Games</span><span>Tests</span></div></div>
+              <a class="project__link magnetic" href="https://github.com/priyanshkk/snake-game" target="_blank" rel="noopener noreferrer" data-cursor="OPEN" aria-label="Open snake-game on GitHub">VIEW REPO ↗</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · EXPERTISE / HOVER REVEAL -->
+      <section class="section expertise" id="expertise">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">04 /</span>
+            <h2>WHAT I <span class="txt-accent">DO</span></h2>
+            <span class="section-head__line"></span>
+          </div>
+          <p class="section-sub" data-fade>Hover a discipline to see the world behind it.</p>
+
+          <div class="exp-list" id="expList">
+            <div class="exp-row" data-preview="assets/workspace.png" data-cursor="EXPLORE">
+              <span class="exp-row__num">01</span><h3>Developer Tools</h3><p>CLIs, validators &amp; workflows built for real pipelines.</p><i>↗</i>
+            </div>
+            <div class="exp-row" data-preview="assets/project-ai.png" data-cursor="EXPLORE">
+              <span class="exp-row__num">02</span><h3>Applied AI / RAG</h3><p>Retrieval systems and local-first intelligence.</p><i>↗</i>
+            </div>
+            <div class="exp-row" data-preview="assets/motion-photo.jpg" data-cursor="EXPLORE">
+              <span class="exp-row__num">03</span><h3>Frontend engineering</h3><p>Fast, tactile interfaces with motion that means something.</p><i>↗</i>
+            </div>
+            <div class="exp-row" data-preview="assets/signal-grid.png" data-cursor="EXPLORE">
+              <span class="exp-row__num">04</span><h3>Security &amp; reliability</h3><p>Secrets, supply chain, CI hardening, honest tests.</p><i>↗</i>
+            </div>
+            <div class="exp-row" data-preview="assets/banner.png" data-cursor="EXPLORE">
+              <span class="exp-row__num">05</span><h3>Open source craft</h3><p>Docs, demos and releases people can actually use.</p><i>↗</i>
             </div>
           </div>
-          <div class="stats reveal" aria-label="Profile statistics">
-            <div class="stat"><span class="stat-num" data-count="16">0</span><span class="stat-label">Public repos</span></div>
-            <div class="stat"><span class="stat-num" data-count="9">0</span><span class="stat-label">Featured builds</span></div>
-            <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">0</span><span class="stat-label">Local-first</span></div>
-            <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">Trackers added</span></div>
-          </div>
+          <div class="exp-preview" id="expPreview" aria-hidden="true"><img id="expPreviewImg" alt="" /></div>
         </div>
       </section>
 
-      <section class="section" id="skills">
-        <div class="section-head reveal"><span class="num">02.</span><h2>Skills</h2><span class="line"></span></div>
-        <p class="section-sub reveal">Tools I reach for — and the ones I'm sharpening right now.</p>
-        <div class="skills-grid">
-          <div class="skill reveal" data-level="90"><div class="skill-top"><span>Python</span><span>90%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="82"><div class="skill-top"><span>TypeScript</span><span>82%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="80"><div class="skill-top"><span>React</span><span>80%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="78"><div class="skill-top"><span>Node.js</span><span>78%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="74"><div class="skill-top"><span>AI / ML &amp; RAG</span><span>74%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="70"><div class="skill-top"><span>Docker</span><span>70%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="76"><div class="skill-top"><span>Testing &amp; CI</span><span>76%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-          <div class="skill reveal" data-level="85"><div class="skill-top"><span>Git &amp; Open Source</span><span>85%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
-        </div>
-        <div class="chips reveal">
-          <span>C</span><span>C++</span><span>Java</span><span>HTML</span><span>CSS</span><span>MySQL</span>
-          <span>MongoDB</span><span>Express</span><span>AWS</span><span>GitHub Actions</span>
-        </div>
-      </section>
+      <!-- 07 · CONTACT -->
+      <section class="contact" id="contact">
+        <canvas id="waveCanvas" aria-hidden="true"></canvas>
+        <div class="contact__glow" aria-hidden="true"></div>
+        <div class="container contact__inner">
+          <p class="kicker" data-fade><span class="pulse"></span> 05 / OPEN CHANNEL</p>
+          <h2 class="contact__title" data-reveal>
+            <span class="line"><span>GOT AN IDEA?</span></span>
+            <span class="line"><span class="txt-accent">LET'S SHIP IT.</span></span>
+          </h2>
+          <p class="contact__copy" data-fade>
+            Open to collaborations, hackathon teams and interesting open-source work.
+            Drop a signal — I reply fast.
+          </p>
 
-      <section class="section" id="projects">
-        <div class="section-head reveal"><span class="num">03.</span><h2>Featured work</h2><span class="line"></span></div>
-        <p class="section-sub reveal">Things I built, tested and shipped — all open source.</p>
-        <div class="projects-grid">
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">01</span><span class="project-lang">Python</span></div>
-            <h3>composeguard</h3>
-            <p>Offline Docker Compose validator for homelabs and CI. Catches hardcoded secrets, port conflicts and privileged containers before deployment.</p>
-            <div class="tags"><span>Docker</span><span>DevOps</span><span>CLI</span></div>
-            <a href="https://github.com/priyanshkk/composeguard" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">02</span><span class="project-lang">Python</span></div>
-            <h3>workflowguard</h3>
-            <p>Offline GitHub Actions linter that catches unpinned actions, broad tokens, shell injection, pwn-requests, hardcoded secrets and costly timeouts.</p>
-            <div class="tags"><span>GitHub Actions</span><span>CI Security</span><span>Browser checker</span></div>
-            <a href="https://github.com/priyanshkk/workflowguard" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">03</span><span class="project-lang">Python</span></div>
-            <h3>envguard</h3>
-            <p>Offline <code>.env</code> validator that catches example drift, placeholders, invalid values and env keys used in source but never declared.</p>
-            <div class="tags"><span>Dotenv</span><span>CI</span><span>Browser demo</span></div>
-            <a href="https://github.com/priyanshkk/envguard" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">04</span><span class="project-lang">TypeScript</span></div>
-            <h3>gitwhisper</h3>
-            <p>Privacy-first AI CLI that catches leaked secrets, writes clean commits and generates PR summaries. Local dashboard, offline fallback, zero keys needed for the demo.</p>
-            <div class="tags"><span>CLI</span><span>React</span><span>Security</span></div>
-            <a href="https://github.com/priyanshkk/gitwhisper" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">05</span><span class="project-lang">Python</span></div>
-            <h3>finpulse-ai</h3>
-            <p>Self-hosted invoice and expense tracker with an AI receipt scanner, offline fallback and one-command Docker setup.</p>
-            <div class="tags"><span>FastAPI</span><span>AI</span><span>Docker</span></div>
-            <a href="https://github.com/priyanshkk/finpulse-ai" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">06</span><span class="project-lang">Python</span></div>
-            <h3>contextkit</h3>
-            <p>Token-aware, structure-preserving text chunking for RAG pipelines with a typed API and CLI. Zero runtime dependencies.</p>
-            <div class="tags"><span>RAG</span><span>CLI</span><span>Library</span></div>
-            <a href="https://github.com/priyanshkk/contextkit" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">07</span><span class="project-lang">Python</span></div>
-            <h3>safepath</h3>
-            <p>Dependency-free path-traversal defence for Python file-serving apps, with a CLI and 56 tests.</p>
-            <div class="tags"><span>Security</span><span>Testing</span><span>CLI</span></div>
-            <a href="https://github.com/priyanshkk/safepath" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">08</span><span class="project-lang">Python</span></div>
-            <h3>file-organizer</h3>
-            <p>Organise files into categories with a dry-run mode and a one-command undo. Small tool, carefully designed.</p>
-            <div class="tags"><span>Automation</span><span>CLI</span></div>
-            <a href="https://github.com/priyanshkk/file-organizer" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="project reveal" tabindex="0">
-            <div class="project-top"><span class="project-index">09</span><span class="project-lang">Python</span></div>
-            <h3>snake-game</h3>
-            <p>Classic Snake with pygame, unit-tested game logic and a clean separation between rules and rendering.</p>
-            <div class="tags"><span>pygame</span><span>Games</span><span>Tests</span></div>
-            <a href="https://github.com/priyanshkk/snake-game" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
-          </article>
-        </div>
-      </section>
+          <button class="email-copy magnetic" id="copyEmail" type="button" data-cursor="COPY" aria-label="Copy email address">
+            <span class="email-copy__addr">priyanshukumarpk3645736@gmail.com</span>
+            <span class="email-copy__action">COPY <i>↗</i></span>
+          </button>
 
-      <section class="section contact-section" id="contact">
-        <div class="contact-card reveal">
-          <p class="eyebrow">// LET'S BUILD SOMETHING</p>
-          <h2>Have an idea?<br /><span class="accent">Let's ship it.</span></h2>
-          <p class="contact-copy">Open to collaborations, hackathon teams and interesting open-source work. Drop a mail — I reply fast.</p>
-          <div class="email-row">
-            <a id="emailLink" href="mailto:priyanshukumarpk3645736@gmail.com">priyanshukumarpk3645736@gmail.com</a>
-            <button id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
+          <div class="socials" aria-label="Social links">
+            <a class="magnetic" href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer" data-cursor="GITHUB"><span>GH</span><small>GitHub</small></a>
+            <a class="magnetic" href="https://www.linkedin.com/in/priyanshu-kumar-a195ba271/" target="_blank" rel="noopener noreferrer" data-cursor="LINKEDIN"><span>IN</span><small>LinkedIn</small></a>
+            <a class="magnetic" href="https://x.com/Priyanshu_kk_29" target="_blank" rel="noopener noreferrer" data-cursor="X / TWITTER"><span>X</span><small>X / Twitter</small></a>
+            <a class="magnetic" href="https://youtube.com/@ApexViewYT" target="_blank" rel="noopener noreferrer" data-cursor="YOUTUBE"><span>YT</span><small>YouTube</small></a>
           </div>
-          <div class="contact-socials">
-            <a href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/priyanshu-kumar-a195ba271/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://x.com/Priyanshu_kk_29" target="_blank" rel="noopener noreferrer">X / Twitter</a>
-            <a href="https://youtube.com/@ApexViewYT" target="_blank" rel="noopener noreferrer">YouTube</a>
-          </div>
+
+          <footer class="footer">
+            <span>© 2026 PRIYANSHU KUMAR · BUILT IN PUBLIC</span>
+            <span class="footer__mid">DESIGNED &amp; CODED FROM SCRATCH <i>✳</i> NO TEMPLATES</span>
+            <a href="#home" data-cursor="TOP">BACK TO TOP ↑</a>
+          </footer>
         </div>
       </section>
     </main>
 
-    <footer>
-      <p>© <span id="year">2026</span> Priyanshu Kumar · Built with HTML, CSS &amp; vanilla JavaScript.</p>
-      <p class="footer-note">No frameworks. No trackers. Just the web.</p>
-    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <div class="toast" id="toast" role="status" aria-live="polite">Email copied to clipboard</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
