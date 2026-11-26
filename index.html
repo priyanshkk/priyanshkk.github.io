@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Priyanshu Kumar — Developer · Open Source · AI</title>
+    <meta
+      name="description"
+      content="Portfolio of Priyanshu Kumar — final-year B.Tech CSE student building privacy-first developer tools, AI applications and open-source software."
+    />
+    <meta name="theme-color" content="#080b10" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23080b10'/><text x='50' y='68' font-family='monospace' font-size='46' font-weight='bold' fill='%2339ff14' text-anchor='middle'>PK</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" id="progress" aria-hidden="true"></div>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="glow glow-one" aria-hidden="true"></div>
+    <div class="glow glow-two" aria-hidden="true"></div>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home">PK<span>.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="nav-cta" href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer">
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+
+    <main>
+      <header class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">// FINAL-YEAR CSE · OPEN SOURCE · BUILDING IN PUBLIC</p>
+          <h1 class="reveal">
+            <span class="muted">Hi, I'm</span>
+            <span class="typed-wrap"><span id="typed">Priyanshu Kumar</span><span class="cursor" aria-hidden="true"></span></span>
+          </h1>
+          <p class="hero-lead reveal">
+            I build <strong>privacy-first developer tools</strong> and useful software — from
+            secret-scanning CLIs to AI-powered apps that work offline.
+          </p>
+          <div class="hero-actions reveal">
+            <a class="btn btn-primary" href="#projects">View projects <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="mailto:priyanshukumarpk3645736@gmail.com">Let's talk <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-socials reveal" aria-label="Social links">
+            <a href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
+            <a href="https://linkedin.com/in/priyanshu-kumar-35a03137a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">IN</a>
+            <a href="https://x.com/Priyanshu_kk_29" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
+            <a href="https://youtube.com/@ApexViewYT" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+          </div>
+        </div>
+
+        <div class="terminal reveal" aria-label="Terminal preview">
+          <div class="terminal-bar">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="terminal-title">priyanshu@dev:~ — zsh</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$</span> <span class="cmd">whoami</span></p>
+            <p class="out">priyanshu kumar <span class="tag">// SDE-minded student</span></p>
+            <p><span class="prompt">$</span> <span class="cmd">cat focus.txt</span></p>
+            <p class="out">developer tools · AI/ML · privacy-first software</p>
+            <p><span class="prompt">$</span> <span class="cmd">npm run build</span></p>
+            <p class="out success">✓ 6 projects shipped <span class="tag">· 0 trackers</span></p>
+            <p><span class="prompt">$</span> <span class="cmd">git status</span></p>
+            <p class="out">On branch <b>building</b> · open to collaborations</p>
+            <p class="final"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
+          </div>
+        </div>
+
+        <a class="scroll-hint" href="#about" aria-label="Scroll to about section">scroll <span aria-hidden="true">↓</span></a>
+      </header>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Python</span><span>◆</span><span>TypeScript</span><span>◆</span><span>React</span><span>◆</span>
+          <span>Node.js</span><span>◆</span><span>Docker</span><span>◆</span><span>AI / ML</span><span>◆</span>
+          <span>Open Source</span><span>◆</span><span>Python</span><span>◆</span><span>TypeScript</span><span>◆</span>
+          <span>React</span><span>◆</span><span>Node.js</span><span>◆</span><span>Docker</span><span>◆</span>
+          <span>AI / ML</span><span>◆</span><span>Open Source</span><span>◆</span>
+        </div>
+      </div>
+
+      <section class="section" id="about">
+        <div class="section-head reveal"><span class="num">01.</span><h2>About</h2><span class="line"></span></div>
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p class="lead">
+              I'm a final-year B.Tech Computer Science student at Sandip University who likes
+              turning messy problems into clean, usable tools.
+            </p>
+            <p>
+              My work sits where developer experience meets practical AI: local-first CLIs,
+              dependency-free Python libraries, and dashboards that never phone home. I care
+              about small details — honest tests, clear docs, and software that works without
+              an API key.
+            </p>
+            <p>
+              Currently exploring retrieval-augmented generation, typed APIs, and the craft of
+              making complex things feel simple.
+            </p>
+            <div class="about-cards">
+              <div class="mini-card"><span class="mini-label">Education</span><strong>B.Tech CSE</strong><small>Sandip University</small></div>
+              <div class="mini-card"><span class="mini-label">Location</span><strong>India</strong><small>Remote-friendly</small></div>
+              <div class="mini-card"><span class="mini-label">Status</span><strong class="online">● Available</strong><small>For collaborations</small></div>
+            </div>
+          </div>
+          <div class="stats reveal" aria-label="Profile statistics">
+            <div class="stat"><span class="stat-num" data-count="10">0</span><span class="stat-label">Public repos</span></div>
+            <div class="stat"><span class="stat-num" data-count="6">0</span><span class="stat-label">Featured builds</span></div>
+            <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">0</span><span class="stat-label">Local-first</span></div>
+            <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">Trackers added</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="section-head reveal"><span class="num">02.</span><h2>Skills</h2><span class="line"></span></div>
+        <p class="section-sub reveal">Tools I reach for — and the ones I'm sharpening right now.</p>
+        <div class="skills-grid">
+          <div class="skill reveal" data-level="90"><div class="skill-top"><span>Python</span><span>90%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="82"><div class="skill-top"><span>TypeScript</span><span>82%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="80"><div class="skill-top"><span>React</span><span>80%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="78"><div class="skill-top"><span>Node.js</span><span>78%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="74"><div class="skill-top"><span>AI / ML &amp; RAG</span><span>74%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="70"><div class="skill-top"><span>Docker</span><span>70%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="76"><div class="skill-top"><span>Testing &amp; CI</span><span>76%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+          <div class="skill reveal" data-level="85"><div class="skill-top"><span>Git &amp; Open Source</span><span>85%</span></div><div class="skill-track"><span class="skill-fill"></span></div></div>
+        </div>
+        <div class="chips reveal">
+          <span>C</span><span>C++</span><span>Java</span><span>HTML</span><span>CSS</span><span>MySQL</span>
+          <span>MongoDB</span><span>Express</span><span>AWS</span><span>GitHub Actions</span>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-head reveal"><span class="num">03.</span><h2>Featured work</h2><span class="line"></span></div>
+        <p class="section-sub reveal">Things I built, tested and shipped — all open source.</p>
+        <div class="projects-grid">
+          <article class="project reveal" tabindex="0">
+            <div class="project-top"><span class="project-index">01</span><span class="project-lang">TypeScript</span></div>
+            <h3>gitwhisper</h3>
+            <p>Privacy-first AI CLI that catches leaked secrets, writes clean commits and generates PR summaries. Local dashboard, offline fallback, zero keys needed for the demo.</p>
+            <div class="tags"><span>CLI</span><span>React</span><span>Security</span></div>
+            <a href="https://github.com/priyanshkk/gitwhisper" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project reveal" tabindex="0">
+            <div class="project-top"><span class="project-index">02</span><span class="project-lang">Python</span></div>
+            <h3>finpulse-ai</h3>
+            <p>Self-hosted invoice and expense tracker with an AI receipt scanner, offline fallback and one-command Docker setup.</p>
+            <div class="tags"><span>FastAPI</span><span>AI</span><span>Docker</span></div>
+            <a href="https://github.com/priyanshkk/finpulse-ai" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project reveal" tabindex="0">
+            <div class="project-top"><span class="project-index">03</span><span class="project-lang">Python</span></div>
+            <h3>contextkit</h3>
+            <p>Token-aware, structure-preserving text chunking for RAG pipelines with a typed API and CLI. Zero runtime dependencies.</p>
+            <div class="tags"><span>RAG</span><span>CLI</span><span>Library</span></div>
+            <a href="https://github.com/priyanshkk/contextkit" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project reveal" tabindex="0">
+            <div class="project-top"><span class="project-index">04</span><span class="project-lang">Python</span></div>
+            <h3>safepath</h3>
+            <p>Dependency-free path-traversal defence for Python file-serving apps, with a CLI and 56 tests.</p>
+            <div class="tags"><span>Security</span><span>Testing</span><span>CLI</span></div>
+            <a href="https://github.com/priyanshkk/safepath" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project reveal" tabindex="0">
+            <div class="project-top"><span class="project-index">05</span><span class="project-lang">Python</span></div>
+            <h3>file-organizer</h3>
+            <p>Organise files into categories with a dry-run mode and a one-command undo. Small tool, carefully designed.</p>
+            <div class="tags"><span>Automation</span><span>CLI</span></div>
+            <a href="https://github.com/priyanshkk/file-organizer" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project reveal" tabindex="0">
+            <div class="project-top"><span class="project-index">06</span><span class="project-lang">Python</span></div>
+            <h3>snake-game</h3>
+            <p>Classic Snake with pygame, unit-tested game logic and a clean separation between rules and rendering.</p>
+            <div class="tags"><span>pygame</span><span>Games</span><span>Tests</span></div>
+            <a href="https://github.com/priyanshkk/snake-game" target="_blank" rel="noopener noreferrer">Explore repo <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact">
+        <div class="contact-card reveal">
+          <p class="eyebrow">// LET'S BUILD SOMETHING</p>
+          <h2>Have an idea?<br /><span class="accent">Let's ship it.</span></h2>
+          <p class="contact-copy">Open to collaborations, hackathon teams and interesting open-source work. Drop a mail — I reply fast.</p>
+          <div class="email-row">
+            <a id="emailLink" href="mailto:priyanshukumarpk3645736@gmail.com">priyanshukumarpk3645736@gmail.com</a>
+            <button id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
+          </div>
+          <div class="contact-socials">
+            <a href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/priyanshu-kumar-35a03137a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://x.com/Priyanshu_kk_29" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+            <a href="https://youtube.com/@ApexViewYT" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year">2026</span> Priyanshu Kumar · Built with HTML, CSS &amp; vanilla JavaScript.</p>
+      <p class="footer-note">No frameworks. No trackers. Just the web.</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">Email copied to clipboard</div>
+    <script src="script.js"></script>
+  </body>
+</html>
