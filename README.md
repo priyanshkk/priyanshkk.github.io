@@ -30,5 +30,5 @@ Then open http://localhost:8000.
 
 ## Author
 
-Priyanshu Kumar — final-year B.Tech CSE, open-source developer.
+Priyanshu Kumar — B.Tech CSE graduate, open-source developer.
 GitHub: https://github.com/priyanshkk
