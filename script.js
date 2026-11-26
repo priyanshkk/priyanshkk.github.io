@@ -1371,6 +1371,10 @@
       { slug: 'workflowguard', label: 'WorkflowGuard — CI lint + security' },
       { slug: 'composeguard', label: 'ComposeGuard — Docker Compose checks' },
       { slug: 'envguard', label: 'EnvGuard — dotenv validator' },
+      { slug: 'rag-audit', label: 'RAG Audit — grounded answer checks' },
+      { slug: 'privacy-lens', label: 'Privacy Lens — static tracker scanner' },
+      { slug: 'status-sentinel', label: 'Status Sentinel — incident diff alerts' },
+      { slug: 'carbon-ledger', label: 'Carbon Ledger — cloud CO2e estimates' },
       { slug: 'gitwhisper', label: 'GitWhisper — commit message helper' },
       { slug: 'finpulse-ai', label: 'FinPulse AI — finance dashboard' }
     ];
