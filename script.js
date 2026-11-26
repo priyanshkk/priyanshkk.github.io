@@ -1306,7 +1306,338 @@
   }
 
   /* ----------------------------------------------------------
-     13 · SAFETY + BOOT
+     13 · INLINE VIDEO + AI PALETTE + LIQUID GLASS
+     ---------------------------------------------------------- */
+  function initVideoEmbed() {
+    const frames = document.querySelectorAll('[data-video]');
+    if (!frames.length) return;
+
+    frames.forEach(function (frame) {
+      frame.addEventListener('click', function () {
+        if (frame.dataset.playing === '1') return;
+
+        // Keep only one YouTube iframe alive at a time — lighter on mobile GPUs.
+        frames.forEach(function (other) {
+          if (other === frame || other.dataset.playing !== '1') return;
+          const old = other.querySelector('iframe');
+          if (old) old.parentNode.removeChild(old);
+          delete other.dataset.playing;
+          other.classList.remove('is-playing');
+        });
+
+        const id = frame.dataset.video || '';
+        if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        iframe.title = frame.dataset.title || 'YouTube video';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        frame.appendChild(iframe);
+        frame.dataset.playing = '1';
+        frame.classList.add('is-playing');
+      });
+    });
+  }
+
+  function initAIPalette() {
+    const palette = document.getElementById('aiPalette');
+    const trigger = document.getElementById('aiTrigger');
+    const input = document.getElementById('aiInput');
+    const results = document.getElementById('aiResults');
+    const scrim = palette ? palette.querySelector('[data-ai-close]') : null;
+    if (!palette || !trigger || !input || !results) return;
+
+    const phrases = [
+      'Type to search Google, GitHub or this portfolio…',
+      'Try /projects, workflowguard or Python…',
+      'Jump to a section or search the web…'
+    ];
+    const sections = [
+      { id: 'home', label: 'Home / Hero' },
+      { id: 'about', label: 'About / Bio' },
+      { id: 'skills', label: 'Skills / Stack' },
+      { id: 'projects', label: 'Projects / Work' },
+      { id: 'playground', label: 'Playground / 3D Toys' },
+      { id: 'expertise', label: 'Expertise / Focus' },
+      { id: 'videos', label: 'Videos / Channel' },
+      { id: 'contact', label: 'Contact / Hire me' }
+    ];
+    const repos = [
+      { slug: 'workflowguard', label: 'WorkflowGuard — CI lint + security' },
+      { slug: 'composeguard', label: 'ComposeGuard — Docker Compose checks' },
+      { slug: 'envguard', label: 'EnvGuard — dotenv validator' },
+      { slug: 'gitwhisper', label: 'GitWhisper — commit message helper' },
+      { slug: 'finpulse-ai', label: 'FinPulse AI — finance dashboard' }
+    ];
+
+    let items = [];
+    let active = -1;
+    let typeTimer = 0;
+    let typeToken = 0;
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function make(icon, title, hint, kind, value) {
+      return { icon: icon, title: title, hint: hint, kind: kind, value: value };
+    }
+
+    function stopTyping() {
+      typeToken += 1;
+      clearTimeout(typeTimer);
+    }
+
+    function typePlaceholder() {
+      if (!palette.classList.contains('is-open') || input.value) return;
+      const token = typeToken;
+      const phrase = phrases[phraseIndex];
+
+      if (deleting) {
+        charIndex -= 1;
+        input.placeholder = phrase.slice(0, Math.max(charIndex, 0));
+        if (charIndex <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          charIndex = 0;
+        }
+      } else {
+        charIndex += 1;
+        input.placeholder = phrase.slice(0, charIndex);
+        if (charIndex >= phrase.length) {
+          deleting = true;
+          if (token === typeToken) typeTimer = setTimeout(typePlaceholder, 1400);
+          return;
+        }
+      }
+      if (token === typeToken) typeTimer = setTimeout(typePlaceholder, deleting ? 24 : 38);
+    }
+
+    function startTyping() {
+      stopTyping();
+      if (reduced) {
+        input.placeholder = phrases[0];
+        return;
+      }
+      deleting = false;
+      charIndex = 0;
+      input.placeholder = '';
+      typeTimer = setTimeout(typePlaceholder, 320);
+    }
+
+    function buildResults() {
+      const raw = input.value.trim();
+      const sectionMode = raw.charAt(0) === '/';
+      const query = raw.replace(/^\//, '').replace(/^(?:g|github)\s+/i, '').trim();
+      const needle = query.toLowerCase();
+      const list = [];
+
+      if (!query) {
+        list.push(make('G', 'Search Google…', 'WEB', 'google', ''));
+        list.push(make('GH', 'Search GitHub / priyanshkk', 'REPOS', 'github', ''));
+        ['projects', 'playground', 'videos', 'contact'].forEach(function (id) {
+          const section = sections.filter(function (s) { return s.id === id; })[0];
+          if (section) list.push(make('↗', section.label, 'SECTION', 'section', section.id));
+        });
+        return list;
+      }
+
+      const matchingSections = sections.filter(function (s) {
+        return !needle || s.label.toLowerCase().indexOf(needle) !== -1 || s.id.indexOf(needle) !== -1;
+      });
+      const matchingRepos = repos.filter(function (r) {
+        return !sectionMode && (r.slug.indexOf(needle) !== -1 || r.label.toLowerCase().indexOf(needle) !== -1);
+      });
+
+      if (sectionMode) {
+        matchingSections.forEach(function (s) {
+          list.push(make('↗', s.label, 'SECTION', 'section', s.id));
+        });
+      } else {
+        list.push(make('G', 'Google: “' + query + '”', 'WEB', 'google', query));
+        list.push(make('GH', 'GitHub: “' + query + '”', 'REPOS', 'github', query));
+        matchingRepos.forEach(function (r) {
+          list.push(make('GH', r.label, 'REPO', 'repo', r.slug));
+        });
+        matchingSections.forEach(function (s) {
+          list.push(make('↗', s.label, 'SECTION', 'section', s.id));
+        });
+      }
+
+      if (!list.length) list.push(make('↗', 'No local match — search Google', 'WEB', 'google', query));
+      return list;
+    }
+
+    function addNode(parent, tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    }
+
+    function render() {
+      items = buildResults();
+      active = items.length ? 0 : -1;
+      results.textContent = '';
+
+      items.forEach(function (item, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'ai-result' + (index === active ? ' is-active' : '');
+        button.setAttribute('role', 'option');
+        button.setAttribute('aria-selected', String(index === active));
+        addNode(button, 'span', 'ai-result__icon', item.icon);
+        addNode(button, 'span', 'ai-result__title', item.title);
+        addNode(button, 'span', 'ai-result__hint', item.hint);
+        addNode(button, 'span', 'ai-result__arrow', '↗');
+        button.addEventListener('pointerenter', function () { setActive(index); });
+        button.addEventListener('click', function () { run(item); });
+        results.appendChild(button);
+      });
+    }
+
+    function setActive(index) {
+      if (!items.length) return;
+      active = (index + items.length) % items.length;
+      const nodes = results.querySelectorAll('.ai-result');
+      nodes.forEach(function (node, i) {
+        const on = i === active;
+        node.classList.toggle('is-active', on);
+        node.setAttribute('aria-selected', String(on));
+      });
+      const current = nodes[active];
+      if (current && typeof current.scrollIntoView === 'function') current.scrollIntoView({ block: 'nearest' });
+    }
+
+    function close(restoreFocus) {
+      if (!palette.classList.contains('is-open')) return;
+      palette.classList.remove('is-open');
+      palette.setAttribute('aria-hidden', 'true');
+      stopTyping();
+      input.placeholder = phrases[0];
+      if (restoreFocus !== false && trigger && document.contains(trigger)) {
+        trigger.focus({ preventScroll: true });
+      }
+    }
+
+    function open() {
+      palette.classList.add('is-open');
+      palette.setAttribute('aria-hidden', 'false');
+      input.value = '';
+      active = -1;
+      render();
+      function focusInput() {
+        try { input.focus({ preventScroll: true }); } catch (error) { input.focus(); }
+      }
+      focusInput();
+      setTimeout(focusInput, 40);
+      startTyping();
+    }
+
+    function run(item) {
+      if (!item) return;
+      const query = (item.value || '').trim();
+
+      if (item.kind === 'section') {
+        const target = document.getElementById(item.value);
+        close(false);
+        if (!target) return;
+        const top = target.getBoundingClientRect().top + window.scrollY - 96;
+        if (lenis && typeof lenis.scrollTo === 'function') {
+          lenis.scrollTo(target, { offset: -96 });
+        } else {
+          window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+        }
+        if (window.history && history.replaceState) history.replaceState(null, '', '#' + item.value);
+        return;
+      }
+
+      let url;
+      if (item.kind === 'repo') {
+        url = 'https://github.com/priyanshkk/' + query;
+      } else if (item.kind === 'github') {
+        const githubQuery = query ? query + ' user:priyanshkk' : 'user:priyanshkk';
+        url = 'https://github.com/search?q=' + encodeURIComponent(githubQuery) + '&type=repositories';
+      } else {
+        url = 'https://www.google.com/search?q=' + encodeURIComponent(query || 'Priyanshu Kumar priyanshkk');
+      }
+      close();
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    trigger.addEventListener('click', open);
+    if (scrim) scrim.addEventListener('click', function () { close(); });
+
+    input.addEventListener('input', function () {
+      stopTyping();
+      input.placeholder = 'Search Google, GitHub or this portfolio…';
+      render();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      const isOpen = palette.classList.contains('is-open');
+      const key = (e.key || '').toLowerCase();
+
+      if ((e.metaKey || e.ctrlKey) && key === 'k') {
+        e.preventDefault();
+        if (isOpen) close(); else open();
+        return;
+      }
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive(active + 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive(active - 1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        run(items[active >= 0 ? active : 0]);
+      } else if (e.key === 'Tab') {
+        const focusables = palette.querySelectorAll('input, button');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+
+  function initGlass3D() {
+    if (!finePointer || reduced) return;
+    document.querySelectorAll('.glass-3d').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        const rect = el.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        el.style.setProperty('--ry', ((px - 0.5) * 4).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', ((0.5 - py) * 4).toFixed(2) + 'deg');
+      });
+      el.addEventListener('pointerleave', function () {
+        el.style.setProperty('--mx', '50%');
+        el.style.setProperty('--my', '0%');
+        el.style.setProperty('--rx', '0deg');
+        el.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     14 · SAFETY + BOOT
      ---------------------------------------------------------- */
   function safetyNet() {
     setTimeout(function () {
@@ -1321,6 +1652,9 @@
 
   function boot() {
     safetyNet();
+    initVideoEmbed();
+    initAIPalette();
+    initGlass3D();
     // Normalise the CSS percentage offset into GSAP's yPercent so intro tweens land at 0.
     if (hasGSAP && !reduced) {
       gsap.set('.hero__title .line > span, .contact__title .line > span', { yPercent: 108, y: 0 });

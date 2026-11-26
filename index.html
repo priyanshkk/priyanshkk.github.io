@@ -127,8 +127,12 @@
         <li><a href="#projects">Work</a></li>
         <li><a href="#playground">Playground</a></li>
         <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#videos">Videos</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="nav__ai magnetic" id="aiTrigger" type="button" data-cursor="FIND" aria-label="Open quick find palette (Ctrl or Cmd + K)">
+        FIND <kbd>Ctrl K</kbd>
+      </button>
       <a class="nav__cta magnetic" href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer" data-cursor="OPEN">
         GitHub <span aria-hidden="true">↗</span>
       </a>
@@ -136,6 +140,17 @@
         <span></span><span></span>
       </button>
     </nav>
+
+    <!-- DIRECT SOCIAL ACCESS -->
+    <aside class="social-dock" aria-label="Direct social access">
+      <span class="social-dock__label">CONNECT</span>
+      <a href="https://github.com/priyanshkk" target="_blank" rel="noopener noreferrer" data-cursor="GITHUB" aria-label="GitHub">GH</a>
+      <a href="https://www.linkedin.com/in/priyanshu-kumar-a195ba271/" target="_blank" rel="noopener noreferrer" data-cursor="LINKEDIN" aria-label="LinkedIn">IN</a>
+      <a href="https://x.com/Priyanshu_kk_29" target="_blank" rel="noopener noreferrer" data-cursor="X" aria-label="X / Twitter">X</a>
+      <a href="https://www.instagram.com/priyanshu.k_/" target="_blank" rel="noopener noreferrer" data-cursor="INSTAGRAM" aria-label="Instagram">IG</a>
+      <a href="https://www.facebook.com/priyanshu.kk.3" target="_blank" rel="noopener noreferrer" data-cursor="FACEBOOK" aria-label="Facebook">FB</a>
+      <a href="https://www.youtube.com/@priyanshu.kk.3" target="_blank" rel="noopener noreferrer" data-cursor="YOUTUBE" aria-label="YouTube">YT</a>
+    </aside>
 
     <main>
       <!-- 02 · HERO -->
@@ -432,7 +447,7 @@
         </div>
       </section>
 
-      <!-- 07 · EXPERTISE / HOVER REVEAL -->
+      <!-- 06 · EXPERTISE / HOVER REVEAL -->
       <section class="section expertise" id="expertise">
         <div class="container">
           <div class="section-head" data-reveal>
@@ -463,12 +478,91 @@
         </div>
       </section>
 
+      <!-- 07 · YOUTUBE / INLINE PLAYERS -->
+      <section class="section videos" id="videos">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">06 /</span>
+            <h2>FROM THE <span class="txt-accent">CHANNEL</span></h2>
+            <span class="section-head__line"></span>
+          </div>
+          <p class="section-sub" data-fade>
+            Latest drops from <strong>@priyanshu.kk.3</strong> — play right here, no jump, no autoplay.
+          </p>
+
+          <div class="videos__grid" data-fade>
+            <div class="videos__rail" aria-label="Videos from @priyanshu.kk.3">
+              <article class="video-card tilt">
+                <div class="video-card__frame" data-video="q0JY62R3wF8" data-title="buildyourownx short final with voice">
+                  <img class="video-card__poster" src="assets/youtube-latest.jpg" alt="Thumbnail for the latest @priyanshu.kk.3 short" loading="lazy" />
+                  <button class="video-card__play" type="button" data-cursor="PLAY" aria-label="Play buildyourownx short final with voice">
+                    <span aria-hidden="true">▶</span>
+                  </button>
+                  <span class="video-card__badge">01 / LATEST</span>
+                </div>
+                <div class="video-card__info">
+                  <span class="video-card__tag">SHORT 01</span>
+                  <h3>BUILD YOUR OWN X — FINAL CUT</h3>
+                  <a class="video-card__link" href="https://www.youtube.com/shorts/q0JY62R3wF8" target="_blank" rel="noopener noreferrer" data-cursor="YOUTUBE">YOUTUBE <i>↗</i></a>
+                </div>
+              </article>
+
+              <article class="video-card tilt">
+                <div class="video-card__frame" data-video="7hdatsnZ2Y0" data-title="Run Android Apps on Windows Like Native Programs! (ApkStart)">
+                  <img class="video-card__poster" src="assets/youtube-short.jpg" alt="Thumbnail for the ApkStart YouTube short" loading="lazy" />
+                  <button class="video-card__play" type="button" data-cursor="PLAY" aria-label="Play Run Android Apps on Windows Like Native Programs">
+                    <span aria-hidden="true">▶</span>
+                  </button>
+                  <span class="video-card__badge">02 / POPULAR</span>
+                </div>
+                <div class="video-card__info">
+                  <span class="video-card__tag">SHORT 02</span>
+                  <h3>ANDROID APPS ON WINDOWS — NO EMULATOR</h3>
+                  <a class="video-card__link" href="https://www.youtube.com/shorts/7hdatsnZ2Y0" target="_blank" rel="noopener noreferrer" data-cursor="YOUTUBE">YOUTUBE <i>↗</i></a>
+                </div>
+              </article>
+
+              <article class="video-card tilt">
+                <div class="video-card__frame" data-video="Xs7KP3CcQL4" data-title="CMD Mein QR Code Banao? Telnet Trick">
+                  <img class="video-card__poster" src="assets/youtube-cmd.jpg" alt="Thumbnail for the CMD QR code YouTube short" loading="lazy" />
+                  <button class="video-card__play" type="button" data-cursor="PLAY" aria-label="Play CMD Mein QR Code Banao Telnet Trick">
+                    <span aria-hidden="true">▶</span>
+                  </button>
+                  <span class="video-card__badge">03 / TRICKS</span>
+                </div>
+                <div class="video-card__info">
+                  <span class="video-card__tag">SHORT 03</span>
+                  <h3>QR CODE IN CMD — ONE TELNET TRICK</h3>
+                  <a class="video-card__link" href="https://www.youtube.com/shorts/Xs7KP3CcQL4" target="_blank" rel="noopener noreferrer" data-cursor="YOUTUBE">YOUTUBE <i>↗</i></a>
+                </div>
+              </article>
+            </div>
+
+            <aside class="videos__panel tilt">
+              <span class="videos__num">CHANNEL / 001</span>
+              <h3>BUILD. SHIP. <span>REPEAT.</span><br />IN 60 SECONDS.</h3>
+              <p>
+                Short experiments from the same workspace behind this portfolio — offline-first tools,
+                Windows tricks and open-source builds. Tap play and the video loads inline, with no
+                background autoplay and no redirect.
+              </p>
+              <a class="videos__channel magnetic" href="https://www.youtube.com/@priyanshu.kk.3" target="_blank" rel="noopener noreferrer" data-cursor="CHANNEL">
+                OPEN @PRIYANSHU.KK.3 <i>↗</i>
+              </a>
+              <div class="videos__meta" aria-hidden="true">
+                <span>03 / INLINE PLAYERS</span><span>NO REDIRECT</span><span>FULL CHANNEL ↗</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
       <!-- 08 · CONTACT -->
       <section class="contact" id="contact">
         <canvas id="waveCanvas" aria-hidden="true"></canvas>
         <div class="contact__glow" aria-hidden="true"></div>
         <div class="container contact__inner">
-          <p class="kicker" data-fade><span class="pulse"></span> 06 / OPEN CHANNEL</p>
+          <p class="kicker" data-fade><span class="pulse"></span> 07 / OPEN CHANNEL</p>
           <h2 class="contact__title" data-reveal>
             <span class="line"><span>GOT AN IDEA?</span></span>
             <span class="line"><span class="txt-accent">LET'S SHIP IT.</span></span>
@@ -503,6 +597,30 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- QUICK FIND PALETTE -->
+    <div class="ai-palette" id="aiPalette" aria-hidden="true">
+      <div class="ai-palette__scrim" data-ai-close></div>
+      <div class="ai-palette__panel glass-3d" role="dialog" aria-modal="true" aria-label="Quick find palette">
+        <div class="ai-palette__head">
+          <span class="ai-pulse" aria-hidden="true"></span>
+          <span>QUICK FIND / SEARCH</span>
+          <kbd>ESC</kbd>
+        </div>
+        <div class="ai-palette__input-wrap">
+          <span class="ai-palette__prompt" aria-hidden="true">›</span>
+          <input class="ai-palette__input" id="aiInput" type="search" autocomplete="off" spellcheck="false"
+            placeholder="Type to search Google, GitHub or this portfolio…"
+            aria-label="Search Google, GitHub or portfolio sections" />
+        </div>
+        <div class="ai-palette__results" id="aiResults" role="listbox" aria-label="Search suggestions"></div>
+        <div class="ai-palette__foot">
+          <span><kbd>↵</kbd> GOOGLE</span>
+          <span><kbd>G</kbd> GITHUB</span>
+          <span><kbd>/</kbd> SECTIONS</span>
+        </div>
+      </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
