@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Priyanshu Kumar portfolio preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070a0f"/>
+      <stop offset="1" stop-color="#0d1a16"/>
+    </linearGradient>
+    <linearGradient id="accents" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#39ff14"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="90" r="260" fill="#39ff14" opacity=".08"/>
+  <circle cx="170" cy="600" r="240" fill="#22d3ee" opacity=".07"/>
+  <g fill="none" stroke="#39ff14" stroke-width="3" opacity=".65">
+    <path d="M90 120V80a20 20 0 0 1 20-20h40M1050 60h40a20 20 0 0 1 20 20v40M1110 470v40a20 20 0 0 1-20 20h-40M150 530h-40a20 20 0 0 1-20-20v-40"/>
+  </g>
+  <text x="90" y="250" fill="#39ff14" font-family="monospace" font-size="24" letter-spacing="4">$ whoami</text>
+  <text x="90" y="350" fill="#e6edf3" font-family="Arial, sans-serif" font-size="82" font-weight="700">Priyanshu Kumar</text>
+  <text x="90" y="415" fill="#22d3ee" font-family="monospace" font-size="30">Open-source developer · India</text>
+  <text x="90" y="480" fill="#8b949e" font-family="monospace" font-size="24">Python · TypeScript · FastAPI · AI · RAG · CLI tools</text>
+  <rect x="90" y="525" width="360" height="6" rx="3" fill="url(#accents)"/>
+  <text x="1010" y="585" fill="#8b949e" font-family="monospace" font-size="20">priyanshkk.github.io</text>
+</svg>
