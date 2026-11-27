@@ -95,6 +95,16 @@
       links: [link('OPEN REPO', URLS.github + '/carbon-ledger')]
     },
     {
+      id: 'runlog-lens',
+      terms: ['runlog-lens', 'runlog lens', 'ci log', 'failure cause', 'flaky step', 'slow step'],
+      title: 'Runlog Lens',
+      lines: [
+        'runlog-lens reads saved CI logs offline and labels each finding as CI-caused, code-caused, flaky or unknown, with a dominant cause per run.',
+        'It also catches retry signals and slow steps, then emits deterministic Markdown or JSON reports with configurable CI gates. 47 tests, Python 3.10–3.12.'
+      ],
+      links: [link('OPEN REPO', URLS.github + '/runlog-lens'), link('SEE WORK', '#projects')]
+    },
+    {
       id: 'envguard',
       terms: ['envguard', 'dotenv', '.env', 'env file', 'environment variable'],
       title: 'EnvGuard',
@@ -139,7 +149,7 @@
       terms: ['python cli', 'cli tools', 'offline tools', 'tool list', 'what tools', 'which tools', 'shipped tools'],
       title: 'The tool shelf',
       lines: [
-        'The public tools include WorkflowGuard, EnvGuard, ComposeGuard, GitWhisper, rag-audit, privacy-lens, status-sentinel and carbon-ledger.',
+        'The public tools include WorkflowGuard, EnvGuard, ComposeGuard, GitWhisper, runlog-lens, rag-audit, privacy-lens, status-sentinel and carbon-ledger.',
         'Most are Python CLIs with offline-first design, MIT licence, README examples, tests and GitHub Actions CI.'
       ],
       links: [link('ALL REPOS', URLS.github), link('PROJECT CARDS', '#projects')]
@@ -169,7 +179,7 @@
       terms: ['projects', 'work', 'portfolio', 'what have you built', 'repo', 'repos'],
       title: 'Selected work',
       lines: [
-        'The portfolio highlights tested developer tools and AI utilities: WorkflowGuard, EnvGuard, rag-audit, privacy-lens, status-sentinel, carbon-ledger, GitWhisper, ComposeGuard and FinPulse AI.',
+        'The portfolio highlights tested developer tools and AI utilities: WorkflowGuard, EnvGuard, runlog-lens, rag-audit, privacy-lens, status-sentinel, carbon-ledger, GitWhisper, ComposeGuard and FinPulse AI.',
         'Each card links to a public repo with a README and CI, not a mockup.'
       ],
       links: [link('OPEN PROJECTS', '#projects'), link('GITHUB', URLS.github)]
