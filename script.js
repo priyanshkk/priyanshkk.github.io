@@ -1352,9 +1352,9 @@
     if (!palette || !trigger || !input || !results) return;
 
     const phrases = [
-      'Type to search Google, GitHub or this portfolio…',
-      'Try /projects, workflowguard or Python…',
-      'Jump to a section or search the web…'
+      'Type to search Google, GitHub, games or this portfolio…',
+      'Try /arcade, workflowguard or Python…',
+      'Jump to a game, section or search the web…'
     ];
     const sections = [
       { id: 'home', label: 'Home / Hero' },
@@ -1362,6 +1362,7 @@
       { id: 'skills', label: 'Skills / Stack' },
       { id: 'projects', label: 'Projects / Work' },
       { id: 'playground', label: 'Playground / 3D Toys' },
+      { id: 'arcade', label: 'Arcade / Puzzle Games' },
       { id: 'expertise', label: 'Expertise / Focus' },
       { id: 'videos', label: 'Videos / Channel' },
       { id: 'social', label: 'Social / Instagram + Facebook' },
@@ -1377,6 +1378,13 @@
       { slug: 'carbon-ledger', label: 'Carbon Ledger — cloud CO2e estimates' },
       { slug: 'gitwhisper', label: 'GitWhisper — commit message helper' },
       { slug: 'finpulse-ai', label: 'FinPulse AI — finance dashboard' }
+    ];
+    const games = [
+      { id: 'memory', label: 'Memory Matrix — card matching' },
+      { id: 'slide', label: 'Daily Slide Grid — 3×3 puzzle' },
+      { id: 'type', label: 'Type Sprint — 30-second typing' },
+      { id: 'quiz', label: 'Signal Quiz — eight quick questions' },
+      { id: 'reflex', label: 'Reflex Grid — eight reaction rounds' }
     ];
 
     let items = [];
@@ -1443,10 +1451,11 @@
       if (!query) {
         list.push(make('G', 'Search Google…', 'WEB', 'google', ''));
         list.push(make('GH', 'Search GitHub / priyanshkk', 'REPOS', 'github', ''));
-        ['projects', 'playground', 'videos', 'social', 'contact'].forEach(function (id) {
+        ['projects', 'playground', 'arcade', 'videos', 'social', 'contact'].forEach(function (id) {
           const section = sections.filter(function (s) { return s.id === id; })[0];
           if (section) list.push(make('↗', section.label, 'SECTION', 'section', section.id));
         });
+        list.push(make('◈', games[0].label, 'GAME', 'game', games[0].id));
         return list;
       }
 
@@ -1455,6 +1464,9 @@
       });
       const matchingRepos = repos.filter(function (r) {
         return !sectionMode && (r.slug.indexOf(needle) !== -1 || r.label.toLowerCase().indexOf(needle) !== -1);
+      });
+      const matchingGames = games.filter(function (g) {
+        return !sectionMode && (g.id.indexOf(needle) !== -1 || g.label.toLowerCase().indexOf(needle) !== -1);
       });
 
       if (sectionMode) {
@@ -1466,6 +1478,9 @@
         list.push(make('GH', 'GitHub: “' + query + '”', 'REPOS', 'github', query));
         matchingRepos.forEach(function (r) {
           list.push(make('GH', r.label, 'REPO', 'repo', r.slug));
+        });
+        matchingGames.forEach(function (g) {
+          list.push(make('◈', g.label, 'GAME', 'game', g.id));
         });
         matchingSections.forEach(function (s) {
           list.push(make('↗', s.label, 'SECTION', 'section', s.id));
@@ -1547,6 +1562,12 @@
       if (!item) return;
       const query = (item.value || '').trim();
 
+      if (item.kind === 'game') {
+        close(false);
+        window.dispatchEvent(new CustomEvent('arcade:open', { detail: { game: query } }));
+        return;
+      }
+
       if (item.kind === 'section') {
         const target = document.getElementById(item.value);
         close(false);
@@ -1587,7 +1608,7 @@
 
     input.addEventListener('input', function () {
       stopTyping();
-      input.placeholder = 'Search Google, GitHub or this portfolio…';
+      input.placeholder = 'Search Google, GitHub, games or this portfolio…';
       render();
     });
 
@@ -1635,20 +1656,20 @@
     const input = document.getElementById('webSearchInput');
     if (!form || !input) return;
 
-    function openWith(query) {
-      window.dispatchEvent(new CustomEvent('quickfind:open', { detail: { query: query } }));
+    function askWith(query) {
+      window.dispatchEvent(new CustomEvent('answer:ask', { detail: { query: query } }));
     }
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       const query = input.value.trim();
-      openWith(query);
+      askWith(query);
       if (!query) input.blur();
     });
 
     document.querySelectorAll('[data-search-chip]').forEach(function (chip) {
       chip.addEventListener('click', function () {
-        openWith(chip.getAttribute('data-search-chip') || '');
+        askWith(chip.getAttribute('data-search-chip') || '');
       });
     });
   }

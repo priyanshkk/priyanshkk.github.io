@@ -83,6 +83,8 @@
       });
     </script>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="arcade.css" />
+    <link rel="stylesheet" href="answers.css" />
   </head>
 
   <body>
@@ -126,6 +128,7 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Work</a></li>
         <li><a href="#playground">Playground</a></li>
+        <li><a href="#arcade">Arcade</a></li>
         <li><a href="#expertise">Expertise</a></li>
         <li><a href="#videos">Videos</a></li>
         <li><a href="#social">Social</a></li>
@@ -168,10 +171,10 @@
               I'm <strong>Priyanshu Kumar</strong> — an open-source builder turning messy
               problems into privacy-first tools, CLIs and AI systems that actually work offline.
             </p>
-            <form class="web-search glass-3d" id="webSearchForm" role="search" aria-label="Search the web" data-fade>
+            <form class="web-search glass-3d" id="webSearchForm" role="search" aria-label="Ask a question or search" data-fade>
               <span class="web-search__icon" aria-hidden="true">⌕</span>
               <input id="webSearchInput" class="web-search__input" type="search" autocomplete="off" spellcheck="false"
-                placeholder="Search Google, GitHub or this portfolio…" aria-label="Search query" />
+                placeholder="Ask a question or search anything…" aria-label="Ask a question or search" />
               <button class="web-search__submit" type="submit" data-cursor="SEARCH">
                 SEARCH <i aria-hidden="true">↗</i>
               </button>
@@ -180,6 +183,16 @@
               <button type="button" data-search-chip="workflowguard">workflowguard</button>
               <button type="button" data-search-chip="Python CLI tools">Python CLI tools</button>
               <button type="button" data-search-chip="/projects">/projects</button>
+            </div>
+            <div class="answer-box" id="answerBox" hidden role="status" aria-live="polite" data-fade>
+              <div class="answer-box__head">
+                <span class="answer-box__label" id="answerLabel">INSTANT ANSWER</span>
+                <span class="answer-box__source" id="answerSource">LOCAL</span>
+                <button class="answer-box__close" id="answerClose" type="button" aria-label="Close answer" data-cursor="CLOSE">×</button>
+              </div>
+              <p class="answer-box__question" id="answerQuestion"></p>
+              <div class="answer-box__body" id="answerBody"></div>
+              <div class="answer-box__actions" id="answerActions"></div>
             </div>
             <div class="hero__actions" data-fade>
               <a class="btn btn--primary magnetic" href="#projects" data-cursor="EXPLORE">
@@ -190,7 +203,7 @@
               </a>
             </div>
             <div class="hero__meta" data-fade>
-              <span><b>16</b> public repos</span>
+              <span><b>20</b> public repos</span>
               <span><b>9</b> shipped builds</span>
               <span><b>0</b> trackers</span>
             </div>
@@ -485,11 +498,123 @@
         </div>
       </section>
 
-      <!-- 06 · EXPERTISE / HOVER REVEAL -->
-      <section class="section expertise" id="expertise">
+      <!-- 07 · ARCADE / LOCAL PUZZLES -->
+      <section class="section arcade" id="arcade">
         <div class="container">
           <div class="section-head" data-reveal>
             <span class="section-head__num">05 /</span>
+            <h2>STAY A WHILE &amp; <span class="txt-accent">PLAY</span></h2>
+            <span class="section-head__line"></span>
+          </div>
+          <p class="section-sub" data-fade>
+            Five small puzzles, zero sign-ups. Memory, a daily 3×3 grid, typing, a signal quiz and reflex rounds —
+            all scored locally on this device.
+          </p>
+
+          <div class="arcade__stats" aria-label="Arcade statistics" data-fade>
+            <div class="arcade-stat"><span>TIME HERE</span><strong id="arcadeTime">00:00</strong></div>
+            <div class="arcade-stat"><span>ROUNDS PLAYED</span><strong id="arcadePlays">00</strong></div>
+            <div class="arcade-stat"><span>BEST STREAK</span><strong id="arcadeStreak">0</strong></div>
+            <div class="arcade-stat"><span>BADGES</span><strong id="arcadeBadges">0/6</strong></div>
+          </div>
+
+          <div class="arcade__shell" data-fade>
+            <div class="arcade__tabs" role="tablist" aria-label="Choose a game">
+              <button class="arcade__tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-memory" data-game="memory" data-cursor="PLAY">MEMORY</button>
+              <button class="arcade__tab" type="button" role="tab" aria-selected="false" aria-controls="panel-slide" data-game="slide" data-cursor="PLAY">SLIDE</button>
+              <button class="arcade__tab" type="button" role="tab" aria-selected="false" aria-controls="panel-type" data-game="type" data-cursor="PLAY">TYPE</button>
+              <button class="arcade__tab" type="button" role="tab" aria-selected="false" aria-controls="panel-quiz" data-game="quiz" data-cursor="PLAY">QUIZ</button>
+              <button class="arcade__tab" type="button" role="tab" aria-selected="false" aria-controls="panel-reflex" data-game="reflex" data-cursor="PLAY">REFLEX</button>
+            </div>
+
+            <div class="arcade__stage">
+              <div class="arcade__hud">
+                <div class="arcade__hud-title">
+                  <span id="gameKicker">GAME 01 / 05</span>
+                  <h3 id="gameTitle">MEMORY MATRIX</h3>
+                </div>
+                <div class="arcade__hud-stats">
+                  <span><span id="gameMovesLabel">MOVES</span> <b id="gameMoves">00</b></span>
+                  <span>TIME <b id="gameTimer">00:00</b></span>
+                  <span>BEST <b id="gameBest">—</b></span>
+                </div>
+              </div>
+              <p class="arcade__hint" id="gameHint">Flip two cards. Find all six pairs in as few moves as you can.</p>
+
+              <div class="game-panel" id="panel-memory" data-panel="memory" role="tabpanel" aria-label="Memory Matrix">
+                <div class="memory-grid" id="memoryGrid" aria-label="Memory card grid"></div>
+                <button class="arcade__restart" type="button" data-restart="active" data-cursor="RESTART">NEW BOARD ↻</button>
+              </div>
+
+              <div class="game-panel" id="panel-slide" data-panel="slide" role="tabpanel" aria-label="Daily Slide Grid" hidden>
+                <div class="slide-wrap">
+                  <div class="slide-grid" id="slideGrid" aria-label="3 by 3 slide puzzle"></div>
+                  <div class="slide-side">
+                    <span class="daily-chip" id="dailyChip">DAILY GRID</span>
+                    <h4>ONE BOARD.<br />EVERY VISITOR.</h4>
+                    <p>The date makes the board the same for everyone today. Tap a tile beside the gap, or use arrow keys. Random mode is always one click away.</p>
+                    <div class="slide-actions">
+                      <button class="arcade__restart" type="button" data-restart="slide-daily" data-cursor="RESTART">REPLAY DAILY ↻</button>
+                      <button class="arcade__restart arcade__restart--ghost" type="button" data-restart="slide-random" data-cursor="SHUFFLE">RANDOM GRID ↻</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="game-panel" id="panel-type" data-panel="type" role="tabpanel" aria-label="Type Sprint" hidden>
+                <div class="type-word" id="typeWord">python</div>
+                <div class="type-input-wrap">
+                  <input id="typeInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Type the word shown above" placeholder="Type the word…" />
+                </div>
+                <div class="type-meta" aria-label="Typing statistics">
+                  <span>WORDS <b id="typeWords">00</b></span>
+                  <span>ACCURACY <b id="typeAccuracy">100%</b></span>
+                  <span>SPEED <b id="typeWpm">0</b> WPM</span>
+                </div>
+                <button class="arcade__restart" type="button" data-restart="active" data-cursor="RESTART">RESTART SPRINT ↻</button>
+              </div>
+
+              <div class="game-panel" id="panel-quiz" data-panel="quiz" role="tabpanel" aria-label="Signal Quiz" hidden>
+                <div class="quiz-card">
+                  <span class="quiz-card__num" id="quizNum">QUESTION 01 / 08</span>
+                  <h4 id="quizQuestion"></h4>
+                  <div class="quiz-options" id="quizOptions"></div>
+                  <p class="quiz-explain" id="quizExplain" aria-live="polite"></p>
+                  <button class="arcade__restart" id="quizNext" type="button" data-cursor="NEXT" hidden>NEXT →</button>
+                </div>
+                <button class="arcade__restart arcade__restart--ghost" type="button" data-restart="active" data-cursor="RESTART">RESTART QUIZ ↻</button>
+              </div>
+
+              <div class="game-panel" id="panel-reflex" data-panel="reflex" role="tabpanel" aria-label="Reflex Grid" hidden>
+                <div class="reflex-wrap">
+                  <div class="reflex-grid" id="reflexGrid" aria-label="Reflex target grid"></div>
+                  <p class="reflex-status" id="reflexStatus" aria-live="polite">Tap START to begin 8 rounds.</p>
+                  <button class="arcade__restart" id="reflexStart" type="button" data-cursor="START">START ROUNDS</button>
+                  <button class="arcade__restart arcade__restart--ghost" type="button" data-restart="active" data-cursor="RESTART">RESET ↻</button>
+                </div>
+              </div>
+
+              <div class="arcade__result" id="arcadeResult" hidden aria-live="polite">
+                <span id="resultTag">MEMORY CLEAR</span>
+                <strong id="resultValue">00 MOVES</strong>
+                <button class="arcade__restart" id="resultAgain" type="button" data-cursor="AGAIN">PLAY AGAIN ↻</button>
+              </div>
+              <div class="arcade__toast" id="arcadeToast" aria-live="polite"></div>
+            </div>
+
+            <div class="arcade__footer">
+              <p>No account, no leaderboard, no tracker. Best scores and badges live only in this browser via localStorage.</p>
+              <div class="badge-strip" id="badgeStrip" aria-label="Arcade badges"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 · EXPERTISE / HOVER REVEAL -->
+      <section class="section expertise" id="expertise">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="section-head__num">06 /</span>
             <h2>WHAT I <span class="txt-accent">DO</span></h2>
             <span class="section-head__line"></span>
           </div>
@@ -516,11 +641,11 @@
         </div>
       </section>
 
-      <!-- 07 · YOUTUBE / INLINE PLAYERS -->
+      <!-- 09 · YOUTUBE / INLINE PLAYERS -->
       <section class="section videos" id="videos">
         <div class="container">
           <div class="section-head" data-reveal>
-            <span class="section-head__num">06 /</span>
+            <span class="section-head__num">07 /</span>
             <h2>FROM THE <span class="txt-accent">CHANNEL</span></h2>
             <span class="section-head__line"></span>
           </div>
@@ -595,11 +720,11 @@
         </div>
       </section>
 
-      <!-- 08 · DIRECT SOCIAL LINKS -->
+      <!-- 10 · DIRECT SOCIAL LINKS -->
       <section class="section social-section" id="social">
         <div class="container">
           <div class="section-head" data-reveal>
-            <span class="section-head__num">07 /</span>
+            <span class="section-head__num">08 /</span>
             <h2>FIND ME <span class="txt-accent">DIRECTLY</span></h2>
             <span class="section-head__line"></span>
           </div>
@@ -640,12 +765,12 @@
         </div>
       </section>
 
-      <!-- 09 · CONTACT -->
+      <!-- 11 · CONTACT -->
       <section class="contact" id="contact">
         <canvas id="waveCanvas" aria-hidden="true"></canvas>
         <div class="contact__glow" aria-hidden="true"></div>
         <div class="container contact__inner">
-          <p class="kicker" data-fade><span class="pulse"></span> 08 / OPEN CHANNEL</p>
+          <p class="kicker" data-fade><span class="pulse"></span> 09 / OPEN CHANNEL</p>
           <h2 class="contact__title" data-reveal>
             <span class="line"><span>GOT AN IDEA?</span></span>
             <span class="line"><span class="txt-accent">LET'S SHIP IT.</span></span>
@@ -708,6 +833,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="arcade.js"></script>
+    <script src="answers.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
