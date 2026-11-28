@@ -1377,6 +1377,7 @@
       { slug: 'status-sentinel', label: 'Status Sentinel — incident diff alerts' },
       { slug: 'carbon-ledger', label: 'Carbon Ledger — cloud CO2e estimates' },
       { slug: 'runlog-lens', label: 'Runlog Lens — CI failure causes + flaky steps' },
+      { slug: 'sketchline', label: 'Sketchline — text to offline SVG diagrams' },
       { slug: 'gitwhisper', label: 'GitWhisper — commit message helper' },
       { slug: 'finpulse-ai', label: 'FinPulse AI — finance dashboard' }
     ];
